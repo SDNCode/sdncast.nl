@@ -70,7 +70,7 @@ namespace sdncast.nl.Pages.Admin
         {
             if (!User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("SignIn","AccountController");
+                return Redirect($"/signin");
             }
             var liveShowDetails = await _liveShowDetails.LoadAsync();
 
