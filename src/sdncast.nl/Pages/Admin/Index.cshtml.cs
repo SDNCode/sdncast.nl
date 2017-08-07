@@ -139,7 +139,7 @@ namespace sdncast.nl.Pages.Admin
             NextShowDatePst = liveShowDetails?.NextShowDateUtc?.ConvertFromUtcToCet();
 
             var nextThursday = GetNextThursday();
-            NextShowDateSuggestionCetPM = nextThursday.AddHours(20).ToString("dd/MM/yyyy HH:mm");
+            NextShowDateSuggestionCetPM = nextThursday.AddHours(20).ToString("MM/dd/yyyy HH:mm");
 
             AppSettings = _appSettings;
             EnvironmentName = _env.EnvironmentName;
