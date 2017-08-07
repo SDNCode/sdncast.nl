@@ -1,5 +1,4 @@
-﻿/// <binding Clean='clean' />
-
+/// <binding AfterBuild='default' Clean='clean' />
 var gulp = require("gulp"),
     del = require("del"),
     concat = require("gulp-concat"),
