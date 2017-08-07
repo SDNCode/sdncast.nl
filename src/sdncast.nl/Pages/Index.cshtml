@@ -1,0 +1,187 @@
+﻿@page
+@model IndexModel
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "SDN Cast";
+}
+
+@section PreContent {
+    <div class="jumbotron">
+        <div class="container">
+            <a href="http://sdn.nl">
+                <img src="~/images/sdnlogo.png" />
+            </a>
+            <h1 class="text-center">
+                SDN Cast
+                @if (Model.IsOnAir)
+                {
+                    <span class="label label-danger"><strong>ON AIR</strong></span>
+                }
+                else if (Model.HasAdminMessage)
+                {
+                    <span class="label label-warning"><strong>STANDBY</strong></span>
+                }
+            </h1>
+            @if (Model.HasAdminMessage)
+            {
+                <h2 class="text-center">
+                    @Model.AdminMessage
+                </h2>
+            }
+            else if (Model.IsOnAir)
+            {
+                <partial name="_HangoutEmbed" model="Model"></partial>
+            }
+            else
+            {
+                <div class="next-episode text-center">
+
+                    @if (Model.NextShowScheduled)
+                    {
+                        <div id="nextShowDetails"
+                             data-utc-year="@Model.NextShowDateUtc.Value.Year"
+                             data-utc-month="@(Model.NextShowDateUtc.Value.Month-1)"
+                             data-utc-day="@Model.NextShowDateUtc.Value.Day"
+                             data-utc-hour="@Model.NextShowDateUtc.Value.Hour"
+                             data-utc-min="@Model.NextShowDateUtc.Value.Minute">
+                            <h2>Volgende cast wordt live gestreamed op</h2>
+                            <h2>
+                                <strong data-part="showTime" class="hidden">
+                                    @Model.NextShowDateUtc.Value.ToString("u")
+                                </strong>
+                            </h2>
+                            <h2>
+                                <span data-part="countdown"></span>
+                            </h2>
+                        </div>
+                        <div class="btn-group">
+                            <button id="addToCalendar" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Voeg aan kalender toe<span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="addToCalendar">
+                                <li><a asp-action="GetiCal" asp-protocol="http">Download iCalendar (ICS) bestand</a></li>
+                                <li><a asp-action="GetiCal" asp-protocol="webcals">Voeg toe d.m.v. webcal</a></li>
+                                <li><a href="@Model.AddToGoogleUrl" target="_blank">Voeg toe aan Google Calendar</a></li>
+                            </ul>
+                        </div>
+
+                        <cache>
+                            <environment names="Development">
+                                <script src="~/js/site.js" inline="true"></script>
+                            </environment>
+                            <environment names="Staging,Production">
+                                <script src="~/js/site.min.js" inline="true"></script>
+                            </environment>
+                        </cache>
+                        <script>
+                            (function () {
+                                window.siteJs.setNextShowDetails("nextShowDetails");
+                            })();
+                        </script>
+                    }
+                    else
+                    {
+                        <h2>Wekelijkse Live Stream</h2>
+                        <p>20:00 PM Central Europe Standard Time</p>
+                    }
+
+                    <p>Kom terug om de webcast te bekijken en vragen te stellen!</p>
+                </div>
+                <div class="text-center">
+
+                    <div id="fb-root"></div>
+
+                    <script>
+                        (function (d, s, id) {
+                            var js, fjs = d.getElementsByTagName(s)[0];
+                            if (d.getElementById(id)) return;
+                            js = d.createElement(s); js.id = id;
+                            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7";
+                            fjs.parentNode.insertBefore(js, fjs);
+                        }(document, 'script', 'facebook-jssdk'));
+                    </script>
+
+                    <table align="center">
+                        <tr>
+                            <td>
+                                <!-- https://developers.facebook.com/docs/plugins/like-button -->
+                                <div class="fb-like" data-href="https://www.facebook.com/SDNCast" data-layout="standard" data-action="like" data-width="100" data-size="large" data-show-faces="true" data-share="true"></div>
+                            </td>
+                            <td>
+                                <!-- https://developers.google.com/youtube/youtube_subscribe_button -->
+                                <div class="g-ytsubscribe" data-channelid="UC3oE_YPB4AJVQSInC-yy3pw" data-layout="default" data-count="default"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+@if (Model.ShowPreviousShows)
+{
+    <h2 class="col-md-12 text-center">Eerder opgenomen SDN Casts</h2>
+
+    <div class="row">
+        @foreach (var show in Model.PreviousShows)
+        {
+            <partial name="_YouTubeShow" model="show"></partial>
+        }
+    </div>
+
+    @if (Model.ShowMoreShowsUrl)
+    {
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a href="@Model.MoreShowsUrl" class="btn btn-primary">Bekijk meer afleveringen</a>
+            </div>
+        </div>
+    }
+}
+
+<div class="row">
+
+    <h2 class="col-md-12 text-center">Over SDN Cast</h2>
+
+    <p>
+        Een wekelijkse blik op ontwikkelingen op het gebied van software ontwikkeling, tech nieuws en events op informele wijze doorgenomen door Microsoft MVP's en SDN-ers <a href="https://twitter.com/MarcelMeijer">Marcel Meijer</a>, <a href="https://twitter.com/aafvstam">Maarten van Stam</a> en <a href="https://twitter.com/FanieReynders">Fanie Reynders</a> af en toe aangevuld met een gastspreker.
+    </p>
+
+    <div class="col-lg-4 text-center">
+        <img src="https://avatars0.githubusercontent.com/u/5305682?v=3&s=460" class="img-circle" alt="Maarten van Stam image" height="140" width="140">
+        <a href="https://twitter.com/aafvstam"><h3>Maarten van Stam</h3></a>
+    </div>
+
+    <div class="col-lg-4 text-center">
+        <img src="https://avatars1.githubusercontent.com/u/1177838?v=3&s=460" class="img-circle" alt="Marcel Meijer image" height="140" width="140">
+        <a href="https://twitter.com/MarcelMeijer"><h3>Marcel Meijer</h3></a>
+    </div>
+
+    <div class="col-lg-4 text-center">
+        <img src="https://avatars0.githubusercontent.com/u/1938143?v=3&s=460" class="img-circle" alt="Fanie Reynders image" height="140" width="140">
+        <a href="https://twitter.com/FanieReynders"><h3>Fanie Reynders</h3></a>
+    </div>
+
+</div>
+@section Scripts {
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="https://apis.google.com/js/platform.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.4.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>
+        <script src="https://apis.google.com/js/platform.js"></script>
+    </environment>
+}
+
+
