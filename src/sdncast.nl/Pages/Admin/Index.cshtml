@@ -11,7 +11,7 @@
 </ol>
 
 <div class="admin-screen">
-    <h2>ASP.NET Community Standup Admin - @Model.EnvironmentName</h2>
+    <h2>SDN Cast Admin - @Model.EnvironmentName</h2>
 
     <form method="post" class="form-horizontal" role="form">
         <h4>Live Show Details</h4>
@@ -50,16 +50,15 @@
             <div class="col-md-5">
                 <div class="input-group">
                     <input asp-for="NextShowDatePst" asp-format="{0:MM/dd/yyyy HH:mm}" type="text"
-                        class="form-control" placeholder="MM/dd/yyyy HH:mm" maxlength="16" />
+                        class="form-control" placeholder="dd/MM/yyyy HH:mm" maxlength="16" />
                     <div class="input-group-btn">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Next Tuesday <span class="caret"></span></button>
                         <ul class="dropdown-menu dropdown-menu-right">
-                            <li><a href="#" data-suggestion="@Model.NextShowDateSuggestionPstAM">10:00 AM</a></li>
-                            <li><a href="#" data-suggestion="@Model.NextShowDateSuggestionPstPM">3:45 PM</a></li>
+                            <li><a href="#" data-suggestion="@Model.NextShowDateSuggestionCetPM">20:00 PM</a></li>
                         </ul>
                     </div>
                     <span class="input-group-addon">
-                        Pacific Time
+                        Central Europe Standard Time
                     </span>
                 </div>
                 <span asp-validation-for="NextShowDatePst" class="text-danger"></span>

@@ -10,9 +10,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using sdncast.nl.Models;
 using sdncast.nl.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace sdncast.nl.Pages.Admin
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly ILiveShowDetailsService _liveShowDetails;
@@ -47,15 +49,13 @@ namespace sdncast.nl.Pages.Admin
         public string LiveShowHtml { get; set; }
 
         [Display(Name = "Next Show Date/time", Description = "Exact date and time of the next live show in Pacific Time")]
-        [DateAfterNow(TimeZoneId = "Pacific Standard Time")]
+        [DateAfterNow(TimeZoneId = "Central Europe Standard Time")]
         public DateTime? NextShowDatePst { get; set; }
 
         [Display(Name = "Standby Message", Description = "Message to show on home page during show standby")]
         public string AdminMessage { get; set; }
 
-        public string NextShowDateSuggestionPstAM { get; set; }
-
-        public string NextShowDateSuggestionPstPM { get; set; }
+        public string NextShowDateSuggestionCetPM { get; set; }
 
         public bool ShowSuccessMessage => !string.IsNullOrEmpty(SuccessMessage);
 
@@ -66,11 +66,17 @@ namespace sdncast.nl.Pages.Admin
         [TempData]
         public string SuccessMessage { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized();
+            }
             var liveShowDetails = await _liveShowDetails.LoadAsync();
 
             UpdateModelProperties(liveShowDetails);
+
+            return Page();
         }
 
         [ModelMetadataType(typeof(IndexModel))]
@@ -87,6 +93,10 @@ namespace sdncast.nl.Pages.Admin
 
         public async Task<IActionResult> OnPostAsync(Input input)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized();
+            }
             var liveShowDetails = await _liveShowDetails.LoadAsync() ?? new LiveShowDetails();
 
             if (!ModelState.IsValid)
@@ -105,7 +115,7 @@ namespace sdncast.nl.Pages.Admin
             TrackShowEvent(input, liveShowDetails);
 
             _mapper.Map(input, liveShowDetails);
-            liveShowDetails.NextShowDateUtc = input.NextShowDatePst?.ConvertFromPtcToUtc();
+            liveShowDetails.NextShowDateUtc = input.NextShowDatePst?.ConvertFromCetToUtc();
 
             await _liveShowDetails.SaveAsync(liveShowDetails);
 
@@ -126,23 +136,22 @@ namespace sdncast.nl.Pages.Admin
         private void UpdateModelProperties(LiveShowDetails liveShowDetails)
         {
             _mapper.Map(liveShowDetails, this);
-            NextShowDatePst = liveShowDetails?.NextShowDateUtc?.ConvertFromUtcToPst();
+            NextShowDatePst = liveShowDetails?.NextShowDateUtc?.ConvertFromUtcToCet();
 
-            var nextTuesday = GetNextTuesday();
-            NextShowDateSuggestionPstAM = nextTuesday.AddHours(10).ToString("MM/dd/yyyy HH:mm");
-            NextShowDateSuggestionPstPM = nextTuesday.AddHours(15).AddMinutes(45).ToString("MM/dd/yyyy HH:mm");
+            var nextThursday = GetNextThursday();
+            NextShowDateSuggestionCetPM = nextThursday.AddHours(20).ToString("dd/MM/yyyy HH:mm");
 
             AppSettings = _appSettings;
             EnvironmentName = _env.EnvironmentName;
         }
 
-        private DateTime GetNextTuesday()
+        private DateTime GetNextThursday()
         {
-            var nowPst = DateTime.UtcNow.ConvertFromUtcToPst();
-            var remainingDays = 7 - ((int)nowPst.DayOfWeek + 5) % 7;
-            var nextTuesday = nowPst.AddDays(remainingDays);
+            var nowCet = DateTime.UtcNow.ConvertFromUtcToCet();
+            var remainingDays = 7 - ((int)nowCet.DayOfWeek + 3) % 7;
+            var nextThursday = nowCet.AddDays(remainingDays);
 
-            return nextTuesday.Date;
+            return nextThursday.Date;
         }
 
         private static EventId _showStarted = new EventId(0, "Show Started");

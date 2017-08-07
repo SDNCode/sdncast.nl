@@ -5,22 +5,22 @@ namespace System
 {
     public static class DateTimeExtensions
     {
-        private const string PST = "Pacific Standard Time";
-        private static readonly TimeZoneInfo _pstTimeZone = TimeZoneInfo.FindSystemTimeZoneById(PST);
+        private const string CEST = "Central Europe Standard Time";
+        private static readonly TimeZoneInfo _cetTimeZone = TimeZoneInfo.FindSystemTimeZoneById(CEST);
 
         public static DateTime ConvertToTimeZone(this DateTime dateTime, TimeZoneInfo sourceTimeZone, TimeZoneInfo destinationTimeZone)
         {
             return TimeZoneInfo.ConvertTime(dateTime, sourceTimeZone, destinationTimeZone);
         }
 
-        public static DateTime ConvertFromUtcToPst(this DateTime dateTime)
+        public static DateTime ConvertFromUtcToCet(this DateTime dateTime)
         {
-            return dateTime.ConvertToTimeZone(TimeZoneInfo.Utc, _pstTimeZone);
+            return dateTime.ConvertToTimeZone(TimeZoneInfo.Utc, _cetTimeZone);
         }
 
-        public static DateTime ConvertFromPtcToUtc(this DateTime dateTime)
+        public static DateTime ConvertFromCetToUtc(this DateTime dateTime)
         {
-            return dateTime.ConvertToTimeZone(_pstTimeZone, TimeZoneInfo.Utc);
+            return dateTime.ConvertToTimeZone(_cetTimeZone, TimeZoneInfo.Utc);
         }
     }
 }
