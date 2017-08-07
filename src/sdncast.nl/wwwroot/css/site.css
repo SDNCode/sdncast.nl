@@ -15,7 +15,7 @@ table {
 
 .jumbotron {
     background: #505C05 url(home-bg.jpg) top center repeat-x;
-    background-size: 920px;
+    background-size: cover;
     color: #fff;
     min-height: 350px;
     background-color: #505C05;
@@ -29,7 +29,7 @@ table {
 
 @media (min-width: 1440px) {
     .jumbotron {
-        background-size: 1440px;
+        background-size: 100%;
     }
 }
 
@@ -153,6 +153,9 @@ footer {
 @media (max-width: 768px) {
     .youtube-show {
         max-width: 480px;
+    }
+    .sdn-logo{
+        display:none;
     }
 }
 
