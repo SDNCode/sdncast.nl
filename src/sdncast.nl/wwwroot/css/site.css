@@ -1,8 +1,8 @@
 ﻿/*csslint qualified-headings:false, unique-headings:false, known-properties:false, universal-selector:false*/
 
 body {
-    padding-bottom: 20px;
     font-family: 'Segoe UI', Tahoma, Arial, Helvetica, sans-serif;
+    padding-bottom: 20px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -15,10 +15,10 @@ table {
 
 .jumbotron {
     background: #505C05 url(home-bg.jpg) top center repeat-x;
+    background-color: #505C05;
     background-size: cover;
     color: #fff;
     min-height: 350px;
-    background-color: #505C05;
 }
 
 @media (min-width: 920px) {
@@ -61,9 +61,9 @@ a, a:hover {
     border-radius: 0;
 }
 
-    .btn-primary {
-        background-color: #0054a3;
-    }
+.btn-primary {
+    background-color: #0054a3;
+}
 
 .dropdown-menu > li > a:hover {
     background-color: #0054a3;
@@ -75,22 +75,22 @@ a, a:hover {
 }
 
 .click-to-show {
+    color: rgb(38, 124, 178);
     cursor: pointer;
     font-style: italic;
-    color: rgb(38, 124, 178);
 }
 
 .click-to-show-revealed {
-    font-style: normal;
     color: initial;
+    font-style: normal;
 }
 
 .hangout-embed {
-    margin-top: 30px;
-    -webkit-box-shadow: 0 0 5px 5px rgba(255, 255, 255, .4);
-    -moz-box-shadow: 0 0 5px 5px rgba(255, 255, 255, .4);
-    box-shadow: 0 0 5px 5px rgba(255, 255, 255, .4);
     background: #212121;
+    -moz-box-shadow: 0 0 5px 5px rgba(255, 255, 255, .4);
+    -webkit-box-shadow: 0 0 5px 5px rgba(255, 255, 255, .4);
+    box-shadow: 0 0 5px 5px rgba(255, 255, 255, .4);
+    margin-top: 30px;
 }
 
     .hangout-embed * {
@@ -106,8 +106,8 @@ a, a:hover {
 }
 
 .thumbnail .caption h3 {
-    margin-top: 0;
     margin-bottom: 0;
+    margin-top: 0;
 }
 
 .admin-screen input {
@@ -123,9 +123,9 @@ footer {
 }
 
     footer nav ul {
+        list-style: none;
         margin: 0;
         padding: 0;
-        list-style: none;
     }
 
         footer nav ul > li {
@@ -141,9 +141,9 @@ footer {
     opacity: 0.6;
 }
 
-    .youtube-show .show-date {
-        font-size: 0.8em;
-    }
+.youtube-show .show-date {
+    font-size: 0.8em;
+}
 
 .label-new-show {
     font-size: 0.6em;
@@ -154,8 +154,9 @@ footer {
     .youtube-show {
         max-width: 480px;
     }
-    .sdn-logo{
-        display:none;
+
+    .sdn-logo {
+        display: none;
     }
 }
 
@@ -179,4 +180,3 @@ footer {
         height: 360px;
     }
 }
-
