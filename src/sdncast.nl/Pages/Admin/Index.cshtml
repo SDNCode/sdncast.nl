@@ -50,7 +50,7 @@
             <div class="col-md-5">
                 <div class="input-group">
                     <input asp-for="NextShowDatePst" asp-format="{0:MM/dd/yyyy HH:mm}" type="text"
-                        class="form-control" placeholder="MM/dd/yyyy HH:mm" maxlength="16" />
+                           class="form-control" placeholder="MM/dd/yyyy HH:mm" maxlength="16" />
                     <div class="input-group-btn">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Next Thursday <span class="caret"></span></button>
                         <ul class="dropdown-menu dropdown-menu-right">
@@ -129,7 +129,7 @@
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     </environment>
     <environment exclude="Development">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.4.min.js"
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
                 asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
                 asp-fallback-test="window.jQuery">
         </script>
@@ -145,7 +145,7 @@
                 .click(function () {
                     var $self = $(this),
                         state = $self.data("state") || "hidden";
-                    
+
                     if (state === "hidden") {
                         $self.text($self.data("hidden-value"));
                         $self.data("state", "showing");
@@ -156,7 +156,7 @@
                         $self.removeClass("click-to-show-revealed");
                     }
                 });
-            
+
             var nextShowDateInput = $("#nextShowDate input");
 
             var suggestions = $("#nextShowDate a[data-suggestion]");
