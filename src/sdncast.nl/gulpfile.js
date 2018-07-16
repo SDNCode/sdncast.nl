@@ -5,7 +5,7 @@
 var gulp = require("gulp"),
     concat = require("gulp-concat"),
     csslint = require('gulp-csslint'),
-    cssmin = require("gulp-cssmin"),
+    cleancss = require("gulp-clean-css"),
     jshint = require('gulp-jshint'),
     uglify = require("gulp-uglify"),
     rimraf = require("rimraf"),
@@ -73,7 +73,7 @@ gulp.task("min:js", function () {
 gulp.task("min:css", function () {
     return gulp.src([paths.css, "!" + paths.minCss])
         .pipe(concat(paths.concatCssDest))
-        .pipe(cssmin())
+        .pipe(cleancss())
         .pipe(gulp.dest("."));
 });
 
