@@ -1,0 +1,50 @@
+﻿@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = "SDN Cast DotNetConf";
+}
+
+@section PreContent {
+    <div class="jumbotron">
+        <div class="container">
+            <a href="http://sdncast.nl">
+                <img src="~/images/sdncastlogo.png" />
+            </a>
+            <a class="pull-right sdn-logo" href="http://sdn.nl">
+                <img src="~/images/sdnlogo.png" />
+            </a>
+            <h1 class="text-center">SDN Cast - .NET Conf Event</h1>
+            <h1 class="text-center">12 September 2018</h1>
+            <ol class="breadcrumb">
+                <li><a asp-page="/Index">Home</a></li>
+                <li class="active">Dot Net Conf</li>
+            </ol>
+        </div>
+    </div>
+}
+
+<div class="container">
+    <div class="row">
+        <img src="~/images/dotnetconf.jpg">
+    </div>
+</div>
+
+@section Scripts {
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="https://apis.google.com/js/platform.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/4.1.1/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>
+        <script src="https://apis.google.com/js/platform.js"></script>
+    </environment>
+}
