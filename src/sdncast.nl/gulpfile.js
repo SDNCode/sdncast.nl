@@ -31,7 +31,6 @@ var library = {
         require.resolve('popper.js/dist/umd/popper.js'),
         require.resolve('popper.js/dist/umd/popper.min.js'),
         // glob pattern to get all files within the directory
-        // path.dirname(require.resolve('bootstrap/dist/fonts/glyphicons-halflings-regular.woff')) + '/**',
         // declare each file
         require.resolve('jquery/dist/jquery.js'),
         require.resolve('jquery/dist/jquery.min.js'),
