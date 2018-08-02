@@ -20,15 +20,25 @@ var library = {
         // glob pattern to get the dirname and match only js and min.js file wanted
         path.dirname(require.resolve('jquery-validation-unobtrusive/jquery.validate.unobtrusive.js')) + '/*unobtrusive**.js',
         // alternative of declaring each file
+        require.resolve('font-awesome/css/font-awesome.css'),
+        require.resolve('font-awesome/css/font-awesome.min.css'),
+        // glob pattern to get all files within the directory
+        path.dirname(require.resolve('font-awesome/fonts/fontawesome-webfont.woff')) + '/**',
         require.resolve('bootstrap/dist/js/bootstrap.js'),
         require.resolve('bootstrap/dist/js/bootstrap.min.js'),
         require.resolve('bootstrap/dist/css/bootstrap.css'),
         require.resolve('bootstrap/dist/css/bootstrap.min.css'),
+        require.resolve('popper.js/dist/umd/popper.js'),
+        require.resolve('popper.js/dist/umd/popper.min.js'),
         // glob pattern to get all files within the directory
-        path.dirname(require.resolve('bootstrap/dist/fonts/glyphicons-halflings-regular.woff')) + '/**',
+        // path.dirname(require.resolve('bootstrap/dist/fonts/glyphicons-halflings-regular.woff')) + '/**',
         // declare each file
         require.resolve('jquery/dist/jquery.js'),
         require.resolve('jquery/dist/jquery.min.js'),
+        require.resolve('jquery-backstretch/jquery.backstretch.js'),
+        require.resolve('jquery-backstretch/jquery.backstretch.min.js'),
+        require.resolve('easy-countdown/dest/jquery.countdown.js'),
+        require.resolve('easy-countdown/dest/jquery.countdown.min.js'),
         // only one file is distributed
         require.resolve('jquery-validation/dist/jquery.validate.js')
     ]

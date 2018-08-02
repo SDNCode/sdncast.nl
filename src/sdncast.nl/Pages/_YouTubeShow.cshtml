@@ -5,11 +5,11 @@
     <div class="thumbnail youtube-show bottom-buffer center-block">
         <a href="@Model.Url" title="Watch this episode">
             <div>
-                <img class="img-responsive center-block" src="@Model.ThumbnailUrl" alt="Thumbnail of episode" />
+                <img class="img-fluid center-block" src="@Model.ThumbnailUrl" alt="Thumbnail of episode" />
             </div>
         </a>
         <div class="caption text-center">
-            <h3>
+            <h4>
                 <a href="@Model.Url" title="Watch this episode">
                     @if (Model.HasTitle)
                     {
@@ -21,7 +21,7 @@
                 {
                     <span class="label label-success label-new-show">New</span>
                 }
-            </h3>
+            </h4>
         </div>
     </div>
 </div>

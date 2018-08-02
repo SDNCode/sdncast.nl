@@ -3,8 +3,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:11321/",
-      "sslPort": 44383
+      "applicationUrl": "http://localhost:5000/",
+      "sslPort": 44324
     }
   },
   "profiles": {
@@ -18,10 +18,10 @@
     "sdncast.nl": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "applicationUrl": "http://localhost:5000"
     }
   }
 }

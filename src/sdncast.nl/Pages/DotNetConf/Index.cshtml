@@ -2,49 +2,222 @@
 @model IndexModel
 
 @{
-    ViewData["Title"] = "SDN Cast DotNetConf";
+    ViewData["Title"] = ".NET Conf Viewing Party by Dutch .NET Group";
+}
+
+@section StyleInfo {
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="invisible"
+              asp-fallback-test-property="visibility"
+              asp-fallback-test-value="hidden" />
+        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
+    </environment>
+    <partial name="_Analytics" />
+
+    <link rel="stylesheet" href="/css/style.css" />
 }
 
 @section PreContent {
-    <div class="jumbotron">
-        <div class="container">
-            <a href="http://sdncast.nl">
-                <img src="~/images/sdncastlogo.png" />
-            </a>
-            <a class="pull-right sdn-logo" href="http://sdn.nl">
-                <img src="~/images/sdnlogo.png" />
-            </a>
-            <h1 class="text-center">SDN Cast - .NET Conf Event</h1>
-            <h1 class="text-center">12 September 2018</h1>
-            <ol class="breadcrumb">
-                <li><a asp-page="/Index">Home</a></li>
-                <li class="active">Dot Net Conf</li>
-            </ol>
-        </div>
-    </div>
-}
 
+    <!-- HEADER -->
+    <header>
+        <!-- HEADER OVERLAY -->
+        <div class="lj-overlay lj-overlay-none"></div>
+        <!-- /HEADER OVERLAY -->
+
+        <div class="container">
+            <!-- LOGO & SOCIALS -->
+            <div class="row">
+                <!-- LOGO -->
+                <div class="col-xs-12 col-sm-4 lj-logo">
+                    <a href="#" title="">
+                        <img src="/images/sdncastlogo.png" class="lj-logo-1x" alt="">
+                        <img src="/images/sdncastlogo.png" class="lj-logo-2x" alt="">
+                    </a>
+                </div>
+                <!-- /LOGO -->
+                <!-- SOCIALS -->
+                <div class="col-sm-8 d-none d-sm-block lj-socials">
+                    <ul class="lj-float-right">
+                        <li><a class="fa fa-twitter" target="_blank" href="https://twitter.com/sdncast"></a></li>
+                        <li><a class="fa fa-youtube" target="_blank" href="https://youtube.com/sdncast"></a></li>
+                    </ul>
+                </div>
+                <!-- /SOCIALS -->
+            </div>
+            <!-- /LOGO & SOCIALS -->
+            <!-- TITLE -->
+            <div class="row justify-content-center">
+                <div class="col-xs-12 lj-title text-center">
+                    <h1 class="lj-text-uppercase"><span>The party will start in...</span> 🎉</h1>
+                </div>
+            </div>
+            <!-- /TITLE -->
+            <!-- COUNTDOWN -->
+            <div class="row">
+                <div class="col-sm-12 lj-countdown">
+                    <div class="row"></div>
+                </div>
+            </div>
+            <!-- /COUNTDOWN -->
+            <!-- DESCRIPTION -->
+            <div class="row justify-content-center">
+                <div class="col-xs-12">
+                    <p class="lj-text-center" style="color: white;">
+                        <a href="https://www.dotnetconf.net" target="_blank">NET Conf</a> is a free, 3 day virtual developer event co-organized by the .NET community and Microsoft.<br />
+                        <br />
+                        Over the course of the three days you have a wide selection of live sessions that feature speakers from the community and .NET product teams. These are the experts in their field and it is a chance to learn, ask questions live, and get inspired for your next software project.<br />
+                        <br />
+                        You will learn to build for web, mobile, desktop, games, services, libraries and more for a variety of platforms and devices all with .NET. We have sessions for everyone, no matter if you are just beginning or are a seasoned engineer. We’ll have presentations on .NET Core and ASP.NET Core, C#, F#, Azure, Visual Studio, Xamarin, and much more.
+                        <br /><br />
+                    </p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="lj-title text-center">
+                    <h2>But face it, who likes to watch alone? That is why we are organizing this viewing party!</h2>
+                </div>
+            </div>
+            <!-- /DESCRIPTION -->
+            <!-- HEADER BUTTON -->
+            <div class="row">
+                <div class="col-xs-12 lj-header-button lj-block-center lj-text-uppercase">
+                    <a href="https://www.meetup.com/dutchdotnet/events/253102865/" target="_blank" title="">
+                        join&nbsp;now
+                    </a>
+                </div>
+            </div>
+            <!-- /HEADER BUTTON -->
+        </div>
+    </header>
+    <!-- /HEADER -->
+}
 <div class="container">
-    <div class="row">
-        <img src="~/images/dotnetconf.jpg">
-    </div>
+    <ol class="breadcrumb">
+        <li><a asp-page="/Index">Home</a></li>
+        <li class="active">DotNetConf</li>
+    </ol>
 </div>
 
+<!-- MAIN -->
+<div class="main">
+    <div class="container">
+        <div class="row">
+            <!-- COLUMNS -->
+            <div class="col-sm-4 lj-icon-box lj-text-center">
+                <span><i class="fa fa-cutlery"></i></span>
+                <h2 class="lj-text-uppercase">Food &amp; Drinks</h2>
+                <p>Everything is taken care of! Free food and drinks for you to enjoy while watching and after! Sponsored by our generous host Capgemini.</p>
+            </div>
+
+            <div class="col-sm-4 lj-icon-box lj-text-center">
+                <span><i class="fa fa-users"></i></span>
+                <h2 class="lj-text-uppercase">Watching together</h2>
+                <p>Watch the keynote and sessions together with other awesome people and have the opportunity to discuss and mingle.</p>
+            </div>
+
+            <div class="col-sm-4 lj-icon-box lj-text-center">
+                <span><i class="fa fa-thumbs-o-up"></i></span>
+                <h2 class="lj-text-uppercase">You'll like it!</h2>
+                <p>You don't want to miss this, it is going to be great! RSVP on our <a href="https://www.meetup.com/dutchdotnet/events/253102865/" target="_blank" title="">Meetup page</a> now.</p>
+            </div>
+            <!-- /COLUMNS -->
+        </div>
+    </div>
+</div>
+<!-- /MAIN -->
+
+@section FooterContent {
+
+    <footer>
+        <!-- FOOTER -->
+        <div class="container">
+
+            <!-- SUBTITLE -->
+            <div class="row justify-content-center">
+                <h3 class="lj-text-uppercase" id="newsletter-form">In collaboration with...</h3>
+            </div>
+            <br />
+            <!-- /SUBTITLE -->
+            <!-- FORM -->
+            <div class="row">
+                <div class="col-xs-6">
+
+                </div>
+                <div class="col-xs-6">
+
+                </div>
+            </div>
+            <!-- /FORM -->
+            <!-- ADDRESS -->
+            <div class="row justify-content-center">
+                <div class="col-sm-3 align-self-center text-center">
+                    <a href="https://www.meetup.com/dutchdotnet/events/253102865/" target="_blank" title="">
+                        <img src="/images/dutchdotnet.png" alt="Dutch .NET logo" style="max-height: 70px;">
+                    </a>
+                </div>
+                <div class="col-sm-3 align-self-center text-center">
+                    <a href="https://www.capgemini.com/nl-nl/" target="_blank" title="">
+                        <img src="/images/capgemini.png" alt="Capgemini logo" style="max-height: 70px;">
+                    </a>
+                </div>
+            </div>
+            <!-- /ADDRESS -->
+            <!-- SUBTITLE -->
+            <br />
+            <div class="row justify-content-center">
+                <h3 class="lj-text-uppercase" id="newsletter-form-bottom"><span>thank you!</span></h3>
+            </div>
+            <!-- /SUBTITLE -->
+            <!-- SOCIALS IN MOBILE -->
+            <div class="row justify-content-center">
+                <div class="col-xs-12 d-block d-sm-none lj-mobile-socials">
+                    <ul>
+                        <li><a class="fa fa-twitter" target="_blank" href="https://twitter.com/sdncast"></a></li>
+                        <li><a class="fa fa-youtube" target="_blank" href="https://youtube.com/sdncast"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /SOCIALS IN MOBILE -->
+        </div>
+        <!-- /FOOTER -->
+    </footer>
+}
+
 @section Scripts {
+
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/popper.js/dist/umd/popper.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="https://apis.google.com/js/platform.js"></script>
+        <script src="~/lib/easy-countdown/dest/jquery.countdown.js"></script>
+        <script src="~/lib/jquery-backstretch/jquery.backstretch.js"></script>
+        <script src="~/js/lj-redcap.js"></script>
     </environment>
     <environment names="Staging,Production">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"
                 asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
                 asp-fallback-test="window.jQuery">
         </script>
-        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/4.1.1/bootstrap.min.js"
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"
+                asp-fallback-src="~/lib/popper.js/dist/umd/popper.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"
                 asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
                 asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
         </script>
         <script src="https://apis.google.com/js/platform.js"></script>
+        <script src="~/lib/easy-countdown/dest/jquery.countdown.min.js"></script>
+        <script src="~/lib/jquery-backstretch/jquery.backstretch.min.js"></script>
+        <script src="~/js/lj-redcap.js"></script>
     </environment>
+
 }

@@ -1,5 +1,10 @@
 ﻿/*csslint qualified-headings:false, unique-headings:false, known-properties:false, universal-selector:false*/
 
+/* 1. IMPORT SECTION */
+
+
+/* 2. BASIC STYLES */
+
 body {
     font-family: 'Segoe UI', Tahoma, Arial, Helvetica, sans-serif;
     padding-bottom: 20px;
@@ -14,7 +19,7 @@ table {
 }
 
 .jumbotron {
-    background: #505C05 url(home-bg.jpg) top center repeat-x;
+    background: #505C05 url(/images/home-bg.jpg) top center repeat-x;
     background-color: #505C05;
     background-size: cover;
     color: #fff;
