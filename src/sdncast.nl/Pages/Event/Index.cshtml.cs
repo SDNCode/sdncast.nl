@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace sdncast.nl.Pages.DotNetConf
+namespace sdncast.nl.Pages.Event
 {
     public class IndexModel : PageModel
     {

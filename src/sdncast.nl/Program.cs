@@ -14,9 +14,8 @@ namespace sdncast.nl
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+            WebHost.CreateDefaultBuilder<Startup>(args)
                 .UseApplicationInsights()
-                .UseStartup<Startup>()
                 .Build();
     }
 }

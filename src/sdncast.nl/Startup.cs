@@ -1,11 +1,9 @@
 ﻿// Copyright (c) .NET Foundation. All rights reserved. 
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using System;
-using System.Security.Claims;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -15,8 +13,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+
 using sdncast.nl.Formatters;
 using sdncast.nl.Services;
+using System.Security.Claims;
 
 namespace sdncast.nl
 {
@@ -38,15 +38,15 @@ namespace sdncast.nl
                 options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-            });
-            services.AddOpenIdConnectAuthentication(options =>
+            })
+            .AddOpenIdConnect(options =>
             {
                 options.ClientId = Configuration["Authentication:AzureAd:ClientId"];
                 options.Authority = Configuration["Authentication:AzureAd:AADInstance"] + Configuration["Authentication:AzureAd:TenantId"];
                 options.ResponseType = OpenIdConnectResponseType.IdToken;
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            });
-            services.AddCookieAuthentication();
+            })
+            .AddCookie();
 
             services.AddAuthorization(options =>
                 options.AddPolicy("Admin", policyBuilder =>
@@ -56,8 +56,14 @@ namespace sdncast.nl
                     )
                 )
             );
+
             services.AddMvc(options => options.OutputFormatters.Add(new iCalendarOutputFormatter()))
+                .AddRazorPagesOptions(options =>
+                {
+                    options.Conventions.AuthorizePage("/Admin/Index", "Admin");
+                })
                 .AddCookieTempDataProvider();
+
 
             services.AddCachedWebRoot();
             services.AddSingleton<IStartupFilter, AppStart>();
@@ -78,6 +84,11 @@ namespace sdncast.nl
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.Use((context, next) => context.Request.Path.StartsWithSegments("/ping")
+                ? context.Response.WriteAsync("pong")
+                : next()
+            );
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -88,7 +99,8 @@ namespace sdncast.nl
                 app.UseExceptionHandler("/error");
             }
 
-            app.UseHsts();
+            // app.UseHsts();
+
 
             app.UseRewriter(new RewriteOptions()
                 .AddIISUrlRewrite(env.ContentRootFileProvider, "urlRewrite.config"));
@@ -98,11 +110,6 @@ namespace sdncast.nl
             app.UseStaticFiles();
 
             app.UseAuthentication();
-
-            app.Use((context, next) => context.Request.Path.StartsWithSegments("/ping")
-                ? context.Response.WriteAsync("pong")
-                : next()
-            );
 
             app.UseMvc();
         }

@@ -82,13 +82,17 @@ namespace sdncast.nl.Services
                     {
                         Provider = "YouTube",
                         ProviderId = item.Snippet.ResourceId.VideoId,
-                        Title = item.Snippet.Title,
+                        Title = GetUsefulBitsFromTitle(item.Snippet.Title),
                         Description = item.Snippet.Description,
-                        ShowDate = DateTimeOffset.Parse(item.Snippet.PublishedAtRaw, null, DateTimeStyles.RoundtripKind),
                         ThumbnailUrl = item.Snippet.Thumbnails.High.Url,
                         Url = GetVideoUrl(item.Snippet.ResourceId.VideoId, item.Snippet.PlaylistId, item.Snippet.Position ?? 0)
                     }).ToList()
                 };
+
+                foreach (var show in result.PreviousShows)
+                {
+                    show.ShowDate = await GetVideoPublishDate(client, show.ProviderId);
+                }
 
                 if (!string.IsNullOrEmpty(playlistItems.NextPageToken))
                 {
@@ -99,17 +103,31 @@ namespace sdncast.nl.Services
             }
         }
 
+        private async Task<DateTimeOffset> GetVideoPublishDate(YouTubeService client, string videoId)
+        {
+            var videoRequest = client.Videos.List("snippet");
+            videoRequest.Id = videoId;
+            videoRequest.MaxResults = 1;
+
+            var video = await videoRequest.ExecuteAsync();
+            var rawDate = video.Items[0].Snippet.PublishedAtRaw;
+
+            return DateTimeOffset.Parse(rawDate, null, DateTimeStyles.RoundtripKind);
+        }
+
         private static string GetUsefulBitsFromTitle(string title)
         {
-            if (title.Count(c => c == '-') < 2)
+            if (string.IsNullOrEmpty(title)) return string.Empty;
+
+            if (title.Count(c => c == '-') < 1)
             {
-                return string.Empty;
+                return title;
             }
 
-            var lastHyphen = title.LastIndexOf('-');
+            var lastHyphen = title.IndexOf('-');
             if (lastHyphen >= 0)
             {
-                var result = title.Substring(lastHyphen + 1);
+                var result = title.Substring(lastHyphen + 1).Trim();
                 return result;
             }
 

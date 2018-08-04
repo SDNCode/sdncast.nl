@@ -1,20 +1,19 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+
 using sdncast.nl.Models;
 using sdncast.nl.Services;
-using Microsoft.AspNetCore.Authorization;
+
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace sdncast.nl.Pages.Admin
 {
-    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly ILiveShowDetailsService _liveShowDetails;
