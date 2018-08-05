@@ -5,8 +5,6 @@
     URL: http://themeforest.net/user/Lumberjacks/
 */
 
-
-
 /* TABLE OF CONTENTS
 
     1. Import section
@@ -17,10 +15,7 @@
     6. Main
     7. Footer
     8. Breakpoints
-
 */
-
-
 
 /* 1. IMPORT SECTION */
 
@@ -344,7 +339,7 @@
     }
 
     .lj-header-button {
-        margin-top: 75px;
+        margin-top: 50px;
         text-align: center;
     }
 

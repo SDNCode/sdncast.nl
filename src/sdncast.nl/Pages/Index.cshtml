@@ -9,6 +9,7 @@
 @section StyleInfo {
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment exclude="Development">
@@ -17,129 +18,148 @@
               asp-fallback-test-class="invisible"
               asp-fallback-test-property="visibility"
               asp-fallback-test-value="hidden" />
+        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
     <partial name="_Analytics" />
 }
 
 @section PreContent {
-    <div class="jumbotron">
-        <div class="container">
-            <a href="http://sdncast.nl">
-                <img src="~/images/sdncastlogo.png" />
-            </a>
-            <a class="float-right sdn-logo" href="http://sdn.nl">
-                <img src="~/images/sdnlogo.png" />
-            </a>
-            <h1 class="text-center">
+    <header>
+        <div class="jumbotron">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+                    <a class="navbar-brand" href="http://sdncast.nl">
+                        <img src="~/images/sdncastlogo.png" />
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Event">Event</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Admin">Admin</a>
+                            </li>
+                        </ul>
 
-                @if (Model.IsOnAir)
-                {
-                    <span class="label label-danger"><strong>ON AIR</strong></span>
-                }
-                else if (Model.HasAdminMessage)
-                {
-                    <span class="label label-warning"><strong>STANDBY</strong></span>
-                }
-            </h1>
-            @if (Model.HasAdminMessage)
-            {
-                <h2 class="text-center">
-                    @Model.AdminMessage
-                </h2>
-            }
-            else if (Model.IsOnAir)
-            {
-                <div class="embed-responsive embed-responsive-16by9 hangout-embed">
-                    <iframe class="embed-responsive-item" src="@Model.LiveShowEmbedUrl" allowfullscreen></iframe>
-                </div>
-                @*<partial name="_HangoutEmbed" model="Model"></partial>*@
-            }
-            else
-            {
-                <div class="next-episode text-center">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="http://sdn.nl">
+                                    <img src="~/images/sdnlogo.png" />
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <h1 class="text-center">
 
-                    @if (Model.NextShowScheduled)
+                    @if (Model.IsOnAir)
                     {
-                        <div id="nextShowDetails"
-                             data-utc-year="@Model.NextShowDateUtc.Value.Year"
-                             data-utc-month="@(Model.NextShowDateUtc.Value.Month-1)"
-                             data-utc-day="@Model.NextShowDateUtc.Value.Day"
-                             data-utc-hour="@Model.NextShowDateUtc.Value.Hour"
-                             data-utc-min="@Model.NextShowDateUtc.Value.Minute">
-                            <h2>Volgende cast wordt live gestreamed op</h2>
-                            <h2>
-                                <strong data-part="showTime" class="hidden">
-                                    @Model.NextShowDateUtc.Value.ToString("u")
-                                </strong>
-                            </h2>
-                            <h2>
-                                <span data-part="countdown"></span>
-                            </h2>
-                        </div>
-                        <div class="btn-group">
-                            <button id="addToCalendar" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Voeg aan kalender toe<span class="caret"></span>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="addToCalendar">
-                                <a class="dropdown-item" asp-action="GetiCal" asp-protocol="http">Download iCalendar (ICS) bestand</a>
-                                <a class="dropdown-item" asp-action="GetiCal" asp-protocol="webcals">Voeg toe d.m.v. webcal</a>
-                                <a class="dropdown-item" href="@Model.AddToGoogleUrl" target="_blank">Voeg toe aan Google Calendar</a>
+                        <span class="label label-danger"><strong>ON AIR</strong></span>
+                    }
+                    else if (Model.HasAdminMessage)
+                    {
+                        <span class="label label-warning"><strong>STANDBY</strong></span>
+                    }
+                </h1>
+                @if (Model.HasAdminMessage)
+                {
+                    <h2 class="text-center">
+                        @Model.AdminMessage
+                    </h2>
+                }
+                else if (Model.IsOnAir)
+                {
+                    <div class="embed-responsive embed-responsive-16by9 hangout-embed">
+                        <iframe class="embed-responsive-item" src="@Model.LiveShowEmbedUrl" allowfullscreen></iframe>
+                    </div>
+                    @*<partial name="_HangoutEmbed" model="Model"></partial>*@
+                }
+                else
+                {
+                    <div class="next-episode text-center">
+
+                        @if (Model.NextShowScheduled)
+                        {
+                            <div id="nextShowDetails"
+                                 data-utc-year="@Model.NextShowDateUtc.Value.Year"
+                                 data-utc-month="@(Model.NextShowDateUtc.Value.Month-1)"
+                                 data-utc-day="@Model.NextShowDateUtc.Value.Day"
+                                 data-utc-hour="@Model.NextShowDateUtc.Value.Hour"
+                                 data-utc-min="@Model.NextShowDateUtc.Value.Minute">
+                                <h2>Volgende cast wordt live gestreamed op</h2>
+                                <h2>
+                                    <strong data-part="showTime" class="hidden">
+                                        @Model.NextShowDateUtc.Value.ToString("u")
+                                    </strong>
+                                </h2>
+                                <h2>
+                                    <span data-part="countdown"></span>
+                                </h2>
                             </div>
+                            <div class="btn-group">
+                                <button id="addToCalendar" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Voeg aan kalender toe<span class="caret"></span>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="addToCalendar">
+                                    <a class="dropdown-item" asp-action="GetiCal" asp-protocol="http">Download iCalendar (ICS) bestand</a>
+                                    <a class="dropdown-item" asp-action="GetiCal" asp-protocol="webcals">Voeg toe d.m.v. webcal</a>
+                                    <a class="dropdown-item" href="@Model.AddToGoogleUrl" target="_blank">Voeg toe aan Google Calendar</a>
+                                </div>
+                            </div>
+
+                            <cache>
+                                <environment names="Development">
+                                    <script src="~/js/site.js" inline="true"></script>
+                                </environment>
+                                <environment names="Staging,Production">
+                                    <script src="~/js/site.min.js" inline="true"></script>
+                                </environment>
+                            </cache>
+                            <script>
+                                (function () {
+                                    window.siteJs.setNextShowDetails("nextShowDetails");
+                                })();
+                            </script>
+                        }
+                        else
+                        {
+                            <h2>Wekelijkse Live Stream</h2>
+                            <p>20:00 PM Central Europe Standard Time</p>
+                        }
+
+                        <p>Kom terug om de webcast te bekijken en vragen te stellen!</p>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row justify-content-center" style="padding: 5px;">
+                            <script>
+                                (function (d, s, id) {
+                                    var js, fjs = d.getElementsByTagName(s)[0];
+                                    if (d.getElementById(id)) return;
+                                    js = d.createElement(s); js.id = id;
+                                    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7";
+                                    fjs.parentNode.insertBefore(js, fjs);
+                                }(document, 'script', 'facebook-jssdk'));
+                            </script>
+
+                            <!-- https://developers.facebook.com/docs/plugins/like-button -->
+                            <div class="fb-like" data-href="https://www.facebook.com/SDNCast" data-layout="standard" data-action="like" data-width="100" data-size="large" data-show-faces="true" data-share="true"></div>
                         </div>
-
-                        <cache>
-                            <environment names="Development">
-                                <script src="~/js/site.js" inline="true"></script>
-                            </environment>
-                            <environment names="Staging,Production">
-                                <script src="~/js/site.min.js" inline="true"></script>
-                            </environment>
-                        </cache>
-                        <script>
-                            (function () {
-                                window.siteJs.setNextShowDetails("nextShowDetails");
-                            })();
-                        </script>
-                    }
-                    else
-                    {
-                        <h2>Wekelijkse Live Stream</h2>
-                        <p>20:00 PM Central Europe Standard Time</p>
-                    }
-
-                    <p>Kom terug om de webcast te bekijken en vragen te stellen!</p>
-                </div>
-                <div class="text-center">
-
-                    <div id="fb-root"></div>
-
-                    <script>
-                        (function (d, s, id) {
-                            var js, fjs = d.getElementsByTagName(s)[0];
-                            if (d.getElementById(id)) return;
-                            js = d.createElement(s); js.id = id;
-                            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7";
-                            fjs.parentNode.insertBefore(js, fjs);
-                        }(document, 'script', 'facebook-jssdk'));
-                    </script>
-
-                    <table align="center">
-                        <tr>
-                            <td>
-                                <!-- https://developers.facebook.com/docs/plugins/like-button -->
-                                <div class="fb-like" data-href="https://www.facebook.com/SDNCast" data-layout="standard" data-action="like" data-width="100" data-size="large" data-show-faces="true" data-share="true"></div>
-                            </td>
-                            <td>
-                                <!-- https://developers.google.com/youtube/youtube_subscribe_button -->
-                                <div class="g-ytsubscribe" data-channelid="UC3oE_YPB4AJVQSInC-yy3pw" data-layout="default" data-count="default"></div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            }
+                        <div class="row justify-content-center" style="padding: 5px;">
+                            <!-- https://developers.google.com/youtube/youtube_subscribe_button -->
+                            <div class="g-ytsubscribe" data-channelid="UC3oE_YPB4AJVQSInC-yy3pw" data-layout="default" data-count="default"></div>
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
-    </div>
+    </header>
 }
 
 @if (Model.ShowPreviousShows)
@@ -149,7 +169,7 @@
     <div class="row">
         @foreach (var show in Model.PreviousShows)
         {
-            <partial name="_YouTubeShow" model="show"></partial>
+            <partial name="_YouTubeShow" model="show" />
         }
     </div>
 
@@ -209,11 +229,13 @@
 
 @section Scripts {
     <environment include="Development">
+        <script src="https://apis.google.com/js/platform.js"></script>
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/popper.js/dist/umd/popper.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     </environment>
     <environment exclude="Development">
+        <script src="https://apis.google.com/js/platform.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"
                 asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
                 asp-fallback-test="window.jQuery">

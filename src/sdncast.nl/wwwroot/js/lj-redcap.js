@@ -53,17 +53,7 @@ $(document).ready(function () {
     //     'slow');           
     // });
 
-    // Countdown
-    // To change date, simply edit: var endDate = "June 26, 2015 20:39:00";
-    $(function () {
-        var endDate = "September 12, 2018 16:00:00";
-        $('.lj-countdown .row').countdown({
-            date: endDate,
-            render: function (data) {
-                $(this.el).html('<div><div><span>' + this.leadingZeros(data.days, 2) + '</span><span>d</span></div><div><span>' + this.leadingZeros(data.hours, 2) + '</span><span>h</span></div></div><div class="lj-countdown-ms"><div><span>' + this.leadingZeros(data.min, 2) + '</span><span>m</span></div><div><span>' + this.leadingZeros(data.sec, 2) + '</span><span>s</span></div></div>');
-            }
-        });
-    });
+
 
     // backstretch
     $("header").backstretch("/images/home-bg.jpg");

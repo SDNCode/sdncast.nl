@@ -32,30 +32,52 @@
         <!-- /HEADER OVERLAY -->
 
         <div class="container">
-            <!-- LOGO & SOCIALS -->
-            <div class="row">
-                <!-- LOGO -->
-                <div class="col-xs-12 col-sm-4 lj-logo">
-                    <a href="#" title="">
-                        <img src="/images/sdncastlogo.png" class="lj-logo-1x" alt="">
-                        <img src="/images/sdncastlogo.png" class="lj-logo-2x" alt="">
-                    </a>
-                </div>
-                <!-- /LOGO -->
-                <!-- SOCIALS -->
-                <div class="col-sm-8 d-none d-sm-block lj-socials">
-                    <ul class="lj-float-right">
-                        <li><a class="fa fa-twitter" target="_blank" href="https://twitter.com/sdncast"></a></li>
-                        <li><a class="fa fa-youtube" target="_blank" href="https://youtube.com/sdncast"></a></li>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+                <a class="navbar-brand" href="http://sdncast.nl">
+                    <img src="~/images/sdncastlogo.png" />
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/Event">Event</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Admin">Admin</a>
+                        </li>
+                    </ul>
+
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="http://sdn.nl">
+                                <img src="~/images/sdnlogo.png" />
+                            </a>
+                        </li>
                     </ul>
                 </div>
-                <!-- /SOCIALS -->
-            </div>
-            <!-- /LOGO & SOCIALS -->
+            </nav>
+
             <!-- TITLE -->
             <div class="row justify-content-center">
+                <div class="lj-title text-center">
+                    <h1 class="lj-text-uppercase"><span>.NET Conf Live Viewing Party in Utrecht!</span></h1>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
                 <div class="col-xs-12 lj-title text-center">
-                    <h1 class="lj-text-uppercase"><span>The party will start in...</span> 🎉</h1>
+                    <h1 class="lj-text-uppercase">🎉</h1>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-xs-12 lj-title text-center">
+                    <h1 class="lj-text-uppercase"><span>The party starts in...</span></h1>
                 </div>
             </div>
             <!-- /TITLE -->
@@ -66,25 +88,6 @@
                 </div>
             </div>
             <!-- /COUNTDOWN -->
-            <!-- DESCRIPTION -->
-            <div class="row justify-content-center">
-                <div class="col-xs-12">
-                    <p class="lj-text-center" style="color: white;">
-                        <a href="https://www.dotnetconf.net" target="_blank">NET Conf</a> is a free, 3 day virtual developer event co-organized by the .NET community and Microsoft.<br />
-                        <br />
-                        Over the course of the three days you have a wide selection of live sessions that feature speakers from the community and .NET product teams. These are the experts in their field and it is a chance to learn, ask questions live, and get inspired for your next software project.<br />
-                        <br />
-                        You will learn to build for web, mobile, desktop, games, services, libraries and more for a variety of platforms and devices all with .NET. We have sessions for everyone, no matter if you are just beginning or are a seasoned engineer. We’ll have presentations on .NET Core and ASP.NET Core, C#, F#, Azure, Visual Studio, Xamarin, and much more.
-                        <br /><br />
-                    </p>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="lj-title text-center">
-                    <h2>But face it, who likes to watch alone? That is why we are organizing this viewing party!</h2>
-                </div>
-            </div>
-            <!-- /DESCRIPTION -->
             <!-- HEADER BUTTON -->
             <div class="row">
                 <div class="col-xs-12 lj-header-button lj-block-center lj-text-uppercase">
@@ -102,6 +105,36 @@
 <!-- MAIN -->
 <div class="main">
     <div class="container">
+
+        <!-- DESCRIPTION -->
+        <div class="row justify-content-center">
+            <div class="col-xs-12">
+                <p class="lj-text-center">
+                    <a href="https://www.dotnetconf.net" target="_blank">NET Conf</a> is a free, 3 day virtual developer event co-organized by the .NET community and Microsoft.<br />
+                    <br />
+                    Over the course of the three days you have a wide selection of live sessions that feature speakers from the community and .NET product teams. These are the experts in their field and it is a chance to learn, ask questions live, and get inspired for your next software project.<br />
+                    <br />
+                    You will learn to build for web, mobile, desktop, games, services, libraries and more for a variety of platforms and devices all with .NET. We have sessions for everyone, no matter if you are just beginning or are a seasoned engineer. We’ll have presentations on .NET Core and ASP.NET Core, C#, F#, Azure, Visual Studio, Xamarin, and much more.
+                    <br /><br />
+                </p>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-sm-5 align-self-center text-center">
+                <p>
+                    <img src="~/images/dotnetconf.jpg" alt=".NET Conf Event" style="max-height: 180px;padding: 5px">
+                </p>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="lj-title text-center">
+                <h2>But face it, who likes to watch alone? That is why we are organizing this viewing party!</h2>
+            </div>
+        </div>
+        <!-- /DESCRIPTION -->
+
         <div class="row">
             <!-- COLUMNS -->
             <div class="col-sm-4 lj-icon-box lj-text-center">
@@ -123,19 +156,7 @@
             </div>
             <!-- /COLUMNS -->
         </div>
-        <div class="row justify-content-center">
-            <div class="lj-title text-center">
-                <h2><span>.NET Conf Live Viewing Party in Utrecht!</span></h2>
-                <br />
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-sm-5 align-self-center text-center">
-                <p>
-                    <img src="~/images/dotnetconf.jpg" alt=".NET Conf Event" style="max-height: 180px;">
-                </p>
-            </div>
-        </div>
+
     </div>
 </div>
 <!-- /MAIN -->
@@ -206,7 +227,7 @@
         <script src="https://apis.google.com/js/platform.js"></script>
         <script src="~/lib/easy-countdown/dest/jquery.countdown.js"></script>
         <script src="~/lib/jquery-backstretch/jquery.backstretch.js"></script>
-        <script src="~/js/lj-redcap.js"></script>
+
     </environment>
     <environment names="Staging,Production">
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"
@@ -224,7 +245,20 @@
         <script src="https://apis.google.com/js/platform.js"></script>
         <script src="~/lib/easy-countdown/dest/jquery.countdown.min.js"></script>
         <script src="~/lib/jquery-backstretch/jquery.backstretch.min.js"></script>
-        <script src="~/js/lj-redcap.js"></script>
     </environment>
 
+    <script src="~/js/lj-redcap.js"></script>
+    <script>
+        // Countdown
+        // To change date, simply edit: var endDate = "June 26, 2015 20:39:00";
+        $(function () {
+            var endDate = "September 12, 2018 16:00:00";
+            $('.lj-countdown .row').countdown({
+                date: endDate,
+                render: function (data) {
+                    $(this.el).html('<div><div><span>' + this.leadingZeros(data.days, 2) + '</span><span>d</span></div><div><span>' + this.leadingZeros(data.hours, 2) + '</span><span>h</span></div></div><div class="lj-countdown-ms"><div><span>' + this.leadingZeros(data.min, 2) + '</span><span>m</span></div><div><span>' + this.leadingZeros(data.sec, 2) + '</span><span>s</span></div></div>');
+                }
+            });
+        });
+    </script>
 }
