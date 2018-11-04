@@ -92,6 +92,7 @@ namespace sdncast.nl.Services
                 foreach (var show in result.PreviousShows)
                 {
                     show.ShowDate = await GetVideoPublishDate(client, show.ProviderId);
+                    show.LiveBroadcastContent = await GetVideoLiveBroadcastContent(client, show.ProviderId);
                 }
 
                 if (!string.IsNullOrEmpty(playlistItems.NextPageToken))
@@ -113,6 +114,18 @@ namespace sdncast.nl.Services
             var rawDate = video.Items[0].Snippet.PublishedAtRaw;
 
             return DateTimeOffset.Parse(rawDate, null, DateTimeStyles.RoundtripKind);
+        }
+
+        private async Task<string> GetVideoLiveBroadcastContent(YouTubeService client, string videoId)
+        {
+            var videoRequest = client.Videos.List("snippet");
+            videoRequest.Id = videoId;
+            videoRequest.MaxResults = 1;
+
+            var video = await videoRequest.ExecuteAsync();
+            var liveBroadcastContent = video.Items[0].Snippet.LiveBroadcastContent;
+
+            return liveBroadcastContent;
         }
 
         private static string GetUsefulBitsFromTitle(string title)

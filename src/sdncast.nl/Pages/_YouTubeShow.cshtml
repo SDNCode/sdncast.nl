@@ -16,10 +16,17 @@
                         @Model.Title<br />
                     }
                 </a>
-                <span class="show-date">@Model.ShowDate.DateTime.ToString("dd MMM, yyyy")</span>
-                @if (Model.IsNew)
+                @if (string.Equals(Model.LiveBroadcastContent, "upcoming"))
                 {
-                    <span class="label label-success label-new-show">New</span>
+                    <span class="badge badge-warning">UPCOMING</span>
+                }
+                else
+                {
+                    <span class="show-date">@Model.ShowDate.DateTime.ToString("dd MMM, yyyy")</span>
+                    @if (Model.IsNew)
+                    {
+                        <span class="badge badge-success badge-new-show">New</span>
+                    }
                 }
             </h4>
         </div>

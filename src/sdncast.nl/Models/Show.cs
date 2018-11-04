@@ -28,5 +28,7 @@ namespace sdncast.nl.Models
         public string Url { get; set; }
 
         public string ThumbnailUrl { get; set; }
+
+        public string LiveBroadcastContent { get; set; }
     }
 }
