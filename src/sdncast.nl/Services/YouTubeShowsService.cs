@@ -8,12 +8,15 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+
 using Google.Apis.Services;
 using Google.Apis.YouTube.v3;
-using sdncast.nl.Models;
+
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
+
+using sdncast.nl.Models;
 
 namespace sdncast.nl.Services
 {
@@ -35,7 +38,7 @@ namespace sdncast.nl.Services
             _cache = memoryCache;
         }
 
-        public async Task<ShowList> GetRecordedShowsAsync(ClaimsPrincipal user, bool disableCache)
+        public async Task<ShowList> GetRecordedShowsAsync(ClaimsPrincipal user, bool disableCache, string playlist)
         {
             if (string.IsNullOrEmpty(_appSettings.YouTubeApiKey))
             {
@@ -44,14 +47,16 @@ namespace sdncast.nl.Services
 
             if (user.Identity.IsAuthenticated && disableCache)
             {
-                return await GetShowsList();
+                return await GetShowsList(playlist);
             }
+
+            string CacheKey = playlist;
 
             var result = _cache.Get<ShowList>(CacheKey);
 
             if (result == null)
             {
-                result = await GetShowsList();
+                result = await GetShowsList(playlist);
 
                 _cache.Set(CacheKey, result, new MemoryCacheEntryOptions
                 {
@@ -62,7 +67,7 @@ namespace sdncast.nl.Services
             return result;
         }
 
-        private async Task<ShowList> GetShowsList()
+        private async Task<ShowList> GetShowsList(string playlist)
         {
             using (var client = new YouTubeService(new BaseClientService.Initializer
             {
@@ -71,7 +76,7 @@ namespace sdncast.nl.Services
             }))
             {
                 var listRequest = client.PlaylistItems.List("snippet");
-                listRequest.PlaylistId = _appSettings.YouTubePlaylistId;
+                listRequest.PlaylistId = playlist;
                 listRequest.MaxResults = 5 * 3; // 5 rows of 3 episodes
 
                 var playlistItems = await listRequest.ExecuteAsync();
@@ -97,7 +102,7 @@ namespace sdncast.nl.Services
 
                 if (!string.IsNullOrEmpty(playlistItems.NextPageToken))
                 {
-                    result.MoreShowsUrl = GetPlaylistUrl(_appSettings.YouTubePlaylistId);
+                    result.MoreShowsUrl = GetPlaylistUrl(playlist);
                 }
 
                 return result;

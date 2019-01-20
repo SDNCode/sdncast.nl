@@ -2,7 +2,7 @@
 @model IndexModel
 
 @{
-    ViewData["Title"] = "SDN Cast Admin";
+    ViewData["Title"] = "SDN Cast - Admin";
 }
 
 @section PreContent {
@@ -22,10 +22,16 @@
                                 <a class="nav-link" href="/">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/Event">Event</a>
+                                <a class="nav-link" href="/LiveCoding">Live Coding</a>
                             </li>
+                            @*<li class="nav-item">
+                                    <a class="nav-link" href="/Event">Event</a>
+                                </li>*@
                             <li class="nav-item active">
                                 <a class="nav-link" href="/Admin">Admin</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/About">About</a>
                             </li>
                         </ul>
 
@@ -125,9 +131,15 @@
         <h4>YouTube Settings</h4>
         <hr />
         <div class="form-group row">
-            <label asp-for="AppSettings.YouTubePlaylistId" class="col-md-3 col-form-label font-weight-bold"></label>
+            <label asp-for="AppSettings.YouTubeCastPlaylistId" class="col-md-3 col-form-label font-weight-bold"></label>
             <div class="col-md-4">
-                <p class="form-control-static">@Model.AppSettings.YouTubePlaylistId</p>
+                <p class="form-control-static">@Model.AppSettings.YouTubeCastPlaylistId</p>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="AppSettings.YouTubeLiveEventsPlaylistId" class="col-md-3 col-form-label font-weight-bold"></label>
+            <div class="col-md-4">
+                <p class="form-control-static">@Model.AppSettings.YouTubeLiveEventsPlaylistId</p>
             </div>
         </div>
         <div class="form-group row">
@@ -175,18 +187,20 @@
 
 @section FooterContent {
     <footer>
-        <div class="row">
-            <div class="col-md-6">
-                <p>
-                    &copy; @DateTime.Now.Year SDN. All rights reserved.
-                </p>
+        <div class="row" style="background-color: #CAD971">
+            <div class="col-md-4">
             </div>
-            <div class="col-md-6 text-right">
-                <partial name="_LoginPartial" />
+            <div class="col-md-4">
+                <center>
+                    &copy; @DateTime.Now.Year SDN. All rights reserved.
+                </center>
+            </div>
+            <div class="col-md-4">
             </div>
         </div>
     </footer>
 }
+
 
 @section Scripts {
     <environment include="Development">

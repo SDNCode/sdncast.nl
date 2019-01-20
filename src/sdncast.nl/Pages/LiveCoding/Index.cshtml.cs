@@ -1,18 +1,16 @@
 ﻿// Copyright (c) .NET Foundation. All rights reserved. 
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
+using sdncast.nl.Models;
+using sdncast.nl.Services;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
 
-using sdncast.nl.Models;
-using sdncast.nl.Services;
-
-namespace sdncast.nl.Pages
+namespace sdncast.nl.Pages.LiveCoding
 {
     public class IndexModel : PageModel
     {
@@ -26,7 +24,7 @@ namespace sdncast.nl.Pages
         private readonly AppSettings _appSettings;
 
         public IndexModel(
-            IShowsService showsService,
+            IShowsService showsService, 
             ILiveShowDetailsService liveShowDetails,
             IOptions<AppSettings> appSettings,
             IObjectMapper mapper)
@@ -76,7 +74,7 @@ namespace sdncast.nl.Pages
         public async Task OnGetAsync(bool? disableCache)
         {
             var liveShowDetails = await _liveShowDetails.LoadAsync();
-            string playlist = _appSettings.YouTubeCastPlaylistId;
+            string playlist = _appSettings.YouTubeLiveEventsPlaylistId;
             var showList = await _showsService.GetRecordedShowsAsync(User, disableCache ?? false, playlist);
 
             _mapper.Map(liveShowDetails, this);

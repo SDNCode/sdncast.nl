@@ -1,0 +1,156 @@
+﻿@page
+@model IndexModel
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "SDN Cast - About";
+}
+
+@section StyleInfo {
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="invisible"
+              asp-fallback-test-property="visibility"
+              asp-fallback-test-value="hidden" />
+        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+
+    <partial name="_Analytics" />
+}
+
+@section PreContent {
+    <header>
+        <div class="jumbotron">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+                    <a class="navbar-brand" href="http://sdncast.nl">
+                        <img src="~/images/sdncastlogo.png" />
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/LiveCoding">Live Coding</a>
+                            </li>
+                            @*<li class="nav-item">
+                                    <a class="nav-link" href="/Event">Event</a>
+                                </li>*@
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Admin">Admin</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="/About">About</a>
+                            </li>
+                        </ul>
+
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="http://sdn.nl">
+                                    <img src="~/images/sdnlogo.png" />
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <h1 class="col-md-12 text-center"><br />About SDN Cast Team</h1>
+            </div>
+        </div>
+    </header>
+}
+
+<div class="row">
+    A Weekly view on what is going on in the world of Software Development by Microsoft MVPs and Software Development Network organizers
+</div>
+<br />
+<div>
+    <center>
+        <a href="https://twitter.com/MarcelMeijer">Marcel Meijer</a>, <a href="https://twitter.com/aafvstam">Maarten van Stam</a>, <a href="https://twitter.com/FanieReynders">Fanie Reynders</a> and last but not least <a href="https://twitter.com/jfversluis">Gerald Versluis</a>
+    </center>
+</div>
+<br />
+<div class="row">
+    Besides the hosts mentioned here we try to invite some interesting guest speakers and developers from other worlds to learn us the new and hot stuff that is going on.
+</div>
+<div class="row">
+    <div class="col-lg-3 text-center">
+        <a href="https://twitter.com/aafvstam">
+            <img src="https://avatars0.githubusercontent.com/u/5305682?v=3&s=460" class="rounded-circle" alt="Maarten van Stam image" height="140" width="140">
+            <h3>Maarten van Stam</h3>
+        </a>
+    </div>
+
+    <div class="col-lg-3 text-center">
+        <a href="https://twitter.com/MarcelMeijer">
+            <img src="https://avatars1.githubusercontent.com/u/1177838?v=3&s=460" class="rounded-circle" alt="Marcel Meijer image" height="140" width="140">
+            <h3>Marcel Meijer</h3>
+        </a>
+    </div>
+
+    <div class="col-lg-3 text-center">
+        <a href="https://twitter.com/FanieReynders">
+            <img src="https://avatars0.githubusercontent.com/u/1938143?v=3&s=460" class="rounded-circle" alt="Fanie Reynders image" height="140" width="140">
+            <h3>Fanie Reynders</h3>
+        </a>
+    </div>
+
+    <div class="col-lg-3 text-center">
+        <a href="https://twitter.com/jfversluis">
+            <img src="https://avatars0.githubusercontent.com/u/939291?v=3&s=460" class="rounded-circle" alt="Gerald Versluis image" height="140" width="140">
+            <h3>Gerald Versluis</h3>
+        </a>
+    </div>
+
+</div>
+
+@section FooterContent {
+    <footer>
+        <div class="row" style="background-color: #CAD971">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+                <center>
+                    &copy; @DateTime.Now.Year SDN. All rights reserved.
+                </center>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </footer>
+}
+
+@section Scripts {
+    <environment include="Development">
+        <script src="https://apis.google.com/js/platform.js"></script>
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/popper.js/dist/umd/popper.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://apis.google.com/js/platform.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"
+                asp-fallback-src="~/lib/popper.js/dist/umd/popper.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>
+    </environment>
+}

@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
+
     <environment exclude="Development">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
@@ -21,6 +22,7 @@
         <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
+
     <partial name="_Analytics" />
 }
 
@@ -41,10 +43,16 @@
                                 <a class="nav-link" href="/">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/Event">Event</a>
+                                <a class="nav-link" href="/LiveCoding">Live Coding</a>
                             </li>
+                            @*<li class="nav-item">
+                                    <a class="nav-link" href="/Event">Event</a>
+                                </li>*@
                             <li class="nav-item">
                                 <a class="nav-link" href="/Admin">Admin</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/About">About</a>
                             </li>
                         </ul>
 
@@ -93,7 +101,7 @@
                                  data-utc-day="@Model.NextShowDateUtc.Value.Day"
                                  data-utc-hour="@Model.NextShowDateUtc.Value.Hour"
                                  data-utc-min="@Model.NextShowDateUtc.Value.Minute">
-                                <h2>Volgende cast wordt live gestreamed op</h2>
+                                <h2>Next SDN Cast will be streamed at</h2>
                                 <h2>
                                     <strong data-part="showTime" class="hidden">
                                         @Model.NextShowDateUtc.Value.ToString("u")
@@ -105,12 +113,12 @@
                             </div>
                             <div class="btn-group">
                                 <button id="addToCalendar" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Voeg aan kalender toe<span class="caret"></span>
+                                    Add to calendar<span class="caret"></span>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="addToCalendar">
-                                    <a class="dropdown-item" asp-action="GetiCal" asp-protocol="http">Download iCalendar (ICS) bestand</a>
-                                    <a class="dropdown-item" asp-action="GetiCal" asp-protocol="webcals">Voeg toe d.m.v. webcal</a>
-                                    <a class="dropdown-item" href="@Model.AddToGoogleUrl" target="_blank">Voeg toe aan Google Calendar</a>
+                                    <a class="dropdown-item" asp-action="GetiCal" asp-protocol="http">Download iCalendar (ICS) file</a>
+                                    <a class="dropdown-item" asp-action="GetiCal" asp-protocol="webcals">Add using webcal</a>
+                                    <a class="dropdown-item" href="@Model.AddToGoogleUrl" target="_blank">Add to Google Calendar</a>
                                 </div>
                             </div>
 
@@ -133,8 +141,8 @@
                             <h2>Wekelijkse Live Stream</h2>
                             <p>20:00 PM Central Europe Standard Time</p>
                         }
-
-                        <p>Kom terug om de webcast te bekijken en vragen te stellen!</p>
+                        <br /><br />
+                        <p>Return to watch the SDN Casts and ask some questions!</p>
                     </div>
                     <div class="container-fluid">
                         <div class="row justify-content-center" style="padding: 5px;">
@@ -164,7 +172,7 @@
 
 @if (Model.ShowPreviousShows)
 {
-    <h2 class="col-md-12 text-center">Eerder opgenomen SDN Casts</h2>
+    <h2 class="col-md-12 text-center">Previous Recorded SDN Casts</h2>
 
     <div class="row">
         @foreach (var show in Model.PreviousShows)
@@ -177,55 +185,28 @@
     {
         <div class="row">
             <div class="col-md-12 text-center">
-                <a href="@Model.MoreShowsUrl" class="btn btn-primary">Bekijk meer afleveringen</a>
+                <a href="@Model.MoreShowsUrl" class="btn btn-primary">More Recordings</a>
             </div>
         </div>
     }
 }
 
-<div class="row">
-
-    <h2 class="col-md-12 text-center">Over SDN Cast</h2>
-
-    <p>
-        Een wekelijkse blik op ontwikkelingen op het gebied van software ontwikkeling, tech nieuws en events op informele wijze doorgenomen door Microsoft MVP's en SDN-ers <a href="https://twitter.com/MarcelMeijer">Marcel Meijer</a>, <a href="https://twitter.com/aafvstam">Maarten van Stam</a>, <a href="https://twitter.com/FanieReynders">Fanie Reynders</a> en <a href="https://twitter.com/jfversluis">Gerald Versluis</a> af en toe aangevuld met een gastspreker.
-    </p>
-
-    <div class="col-lg-3 text-center">
-        <img src="https://avatars0.githubusercontent.com/u/5305682?v=3&s=460" class="rounded-circle" alt="Maarten van Stam image" height="140" width="140">
-        <a href="https://twitter.com/aafvstam"><h3>Maarten van Stam</h3></a>
-    </div>
-
-    <div class="col-lg-3 text-center">
-        <img src="https://avatars1.githubusercontent.com/u/1177838?v=3&s=460" class="rounded-circle" alt="Marcel Meijer image" height="140" width="140">
-        <a href="https://twitter.com/MarcelMeijer"><h3>Marcel Meijer</h3></a>
-    </div>
-
-    <div class="col-lg-3 text-center">
-        <img src="https://avatars0.githubusercontent.com/u/1938143?v=3&s=460" class="rounded-circle" alt="Fanie Reynders image" height="140" width="140">
-        <a href="https://twitter.com/FanieReynders"><h3>Fanie Reynders</h3></a>
-    </div>
-
-    <div class="col-lg-3 text-center">
-        <img src="https://avatars0.githubusercontent.com/u/939291?v=3&s=460" class="rounded-circle" alt="Gerald Versluis image" height="140" width="140">
-        <a href="https://twitter.com/jfversluis"><h3>Gerald Versluis</h3></a>
-    </div>
-</div>
-
 @section FooterContent {
     <footer>
-        <div class="row">
-            <div class="col-md-6">
-                <p>
-                    &copy; @DateTime.Now.Year SDN. All rights reserved.
-                </p>
+        <div class="row" style="background-color: #CAD971">
+            <div class="col-md-4">
             </div>
-            <div class="col-md-6 text-right">
-                <partial name="_LoginPartial" />
+            <div class="col-md-4">
+                <center>
+                    &copy; @DateTime.Now.Year SDN. All rights reserved.
+                </center>
+            </div>
+            <div class="col-md-4">
             </div>
         </div>
     </footer>
 }
+
 
 @section Scripts {
     <environment include="Development">

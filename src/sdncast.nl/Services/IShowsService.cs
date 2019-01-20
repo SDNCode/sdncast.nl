@@ -8,6 +8,6 @@ namespace sdncast.nl.Services
 {
     public interface IShowsService
     {
-        Task<ShowList> GetRecordedShowsAsync(ClaimsPrincipal user, bool disableCache);
+        Task<ShowList> GetRecordedShowsAsync(ClaimsPrincipal user, bool disableCache, string playlist);
     }
 }

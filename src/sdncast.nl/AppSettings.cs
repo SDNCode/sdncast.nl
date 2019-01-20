@@ -9,7 +9,9 @@ namespace sdncast.nl
 
         public string YouTubeApiKey { get; set; }
 
-        public string YouTubePlaylistId { get; set; }
+        public string YouTubeCastPlaylistId { get; set; }
+
+        public string YouTubeLiveEventsPlaylistId { get; set; }
 
         public string AzureStorageConnectionString { get; set; }
 
