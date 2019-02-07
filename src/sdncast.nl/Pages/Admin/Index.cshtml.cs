@@ -125,7 +125,8 @@ namespace sdncast.nl.Pages.Admin
 
         public IActionResult OnPostClearCache()
         {
-            _memoryCache.Remove(YouTubeShowsService.CacheKey);
+            _memoryCache.Remove(_appSettings.YouTubeLiveEventsPlaylistId);
+            _memoryCache.Remove(_appSettings.YouTubeCastPlaylistId);
 
             SuccessMessage = "YouTube cache cleared successfully!";
 

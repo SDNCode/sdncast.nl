@@ -22,8 +22,6 @@ namespace sdncast.nl.Services
 {
     public class YouTubeShowsService : IShowsService
     {
-        public const string CacheKey = nameof(YouTubeShowsService);
-
         private readonly IHostingEnvironment _env;
         private readonly AppSettings _appSettings;
         private readonly IMemoryCache _cache;
