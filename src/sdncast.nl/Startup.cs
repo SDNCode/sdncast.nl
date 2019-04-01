@@ -20,6 +20,8 @@ using System.Security.Claims;
 
 namespace sdncast.nl
 {
+    // Force a little update to the App Service 
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
