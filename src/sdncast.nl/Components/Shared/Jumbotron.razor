@@ -1,0 +1,129 @@
+@using sdncast.nl.Services
+@using  Microsoft.Extensions.Options
+
+@inject ILiveShowDetailsService _liveShowDetails
+@inject IShowsService _showsService
+@inject IObjectMapper _mapper
+@inject IOptions<AppSettings> _appSettings
+<header>
+
+    <h1 class="text-center">
+
+        @if (IsOnAir)
+        {
+            <span class="badge badge-danger"><strong>ON AIR</strong></span>
+        }
+        else if (HasAdminMessage)
+        {
+            <span class="badge badge-warning"><strong>STANDBY</strong></span>
+        }
+    </h1>
+    @if (HasAdminMessage)
+    {
+        <h2 class="text-center">
+            @AdminMessage
+        </h2>
+    }
+    else if (IsOnAir)
+    {
+        <div class="embed-responsive embed-responsive-16by9 hangout-embed">
+            <iframe class="embed-responsive-item" src="@LiveShowEmbedUrl" allowfullscreen></iframe>
+        </div>
+        @*<partial name="_HangoutEmbed" model="Model"></partial>*@
+    }
+    else
+    {
+        <div class="next-episode text-center">
+
+            @if (NextShowScheduled)
+            {
+                <div id="nextShowDetails"
+                     data-utc-year="@NextShowDateUtc.Value.Year"
+                     data-utc-month="@(NextShowDateUtc.Value.Month-1)"
+                     data-utc-day="@NextShowDateUtc.Value.Day"
+                     data-utc-hour="@NextShowDateUtc.Value.Hour"
+                     data-utc-min="@NextShowDateUtc.Value.Minute">
+                    <h2>Next SDN Cast will be streamed at</h2>
+                    <h2>
+                        <strong data-part="showTime" class="hidden">
+                            @NextShowDateUtc.Value.ToString("u")
+                        </strong>
+                    </h2>
+                    <h2>
+                        <span data-part="countdown"></span>
+                    </h2>
+                </div>
+                <div class="btn-group">
+                    <button id="addToCalendar" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Add to calendar<span class="caret"></span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="addToCalendar">
+                        <a class="dropdown-item" asp-action="GetiCal" asp-protocol="http">Download iCalendar (ICS) file</a>
+                        <a class="dropdown-item" asp-action="GetiCal" asp-protocol="webcals">Add using webcal</a>
+                        @*<a class="dropdown-item" href="@Model.AddToGoogleUrl" target="_blank">Add to Google Calendar</a>*@
+                    </div>
+                </div>
+
+
+                @*<script>
+                            (function () {
+                                window.siteJs.setNextShowDetails("nextShowDetails");
+                            })();
+                    </script>*@
+            }
+            else
+            {
+                <h2>Wekelijkse Live Stream</h2>
+                <p>20:00 PM Central Europe Standard Time</p>
+            }
+            <br /><br />
+            <p>Return to watch the SDN Casts and ask some questions!</p>
+        </div>
+        <div class="container-fluid">
+            <div class="row justify-content-center" style="padding: 5px;">
+
+                <!-- https://developers.facebook.com/docs/plugins/like-button -->
+                <div class="fb-like" data-href="https://www.facebook.com/SDNCast" data-layout="standard" data-action="like" data-width="100" data-size="large" data-show-faces="true" data-share="true"></div>
+            </div>
+            <div class="row justify-content-center" style="padding: 5px;">
+                <!-- https://developers.google.com/youtube/youtube_subscribe_button -->
+                <div class="g-ytsubscribe" data-channelid="UC3oE_YPB4AJVQSInC-yy3pw" data-layout="default" data-count="default"></div>
+            </div>
+        </div>
+    }
+    </div>
+    </div>
+</header>
+
+@functions{
+
+    [Parameter]
+    public string AdminMessage { get; set; }
+
+    public bool HasAdminMessage => !string.IsNullOrEmpty(AdminMessage);
+
+    public bool IsOnAir => !HasAdminMessage && (IsLiveShowEmbedded || !string.IsNullOrEmpty(LiveShowHtml));
+
+    [Parameter]
+    public DateTime? NextShowDateUtc { get; set; }
+
+    [Parameter]
+    public string LiveShowHtml { get; set; }
+
+    [Parameter]
+    public string LiveShowEmbedUrl { get; set; }
+
+    public bool NextShowScheduled => NextShowDateUtc.HasValue;
+
+    public bool IsLiveShowEmbedded => !string.IsNullOrEmpty(LiveShowEmbedUrl);
+
+    protected override async Task OnInitAsync()
+    {
+        var liveShowDetails = await _liveShowDetails.LoadAsync();
+        string playlist = _appSettings.Value.YouTubeCastPlaylistId;
+        //  var showList = await _showsService.GetRecordedShowsAsync(User,  false, playlist);
+
+        _mapper.Map(liveShowDetails, this);
+        // _mapper.Map(showList, this);
+    }
+}

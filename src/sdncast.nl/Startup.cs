@@ -1,78 +1,43 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved. 
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-//fanie was here again
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Rewrite;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-
-using sdncast.nl.Formatters;
+using sdncast.nl.Components;
 using sdncast.nl.Services;
-using System.Security.Claims;
 
 namespace sdncast.nl
 {
-    // Force a little update to the App Service 
-
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; set; }
-
+        // This method gets called by the runtime. Use this method to add services to the container.
+        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+            services.AddMvc()
+                .AddNewtonsoftJson();
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-            })
-            .AddOpenIdConnect(options =>
-            {
-                options.ClientId = Configuration["Authentication:AzureAd:ClientId"];
-                options.Authority = Configuration["Authentication:AzureAd:AADInstance"] + Configuration["Authentication:AzureAd:TenantId"];
-                options.ResponseType = OpenIdConnectResponseType.IdToken;
-                options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            })
-            .AddCookie();
-
-            services.AddAuthorization(options =>
-                options.AddPolicy("Admin", policyBuilder =>
-                    policyBuilder.RequireClaim(
-                        ClaimTypes.Name,
-                        Configuration["Authorization:AdminUsers"].Split(',')
-                    )
-                )
-            );
-
-            services.AddMvc(options => options.OutputFormatters.Add(new iCalendarOutputFormatter()))
-                .AddRazorPagesOptions(options =>
-                {
-                    options.Conventions.AuthorizePage("/Admin/Index", "Admin");
-                })
-                .AddCookieTempDataProvider();
-
-
+            services.AddRazorComponents();
             services.AddCachedWebRoot();
+            services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<IStartupFilter, AppStart>();
             services.AddScoped<IShowsService, YouTubeShowsService>();
             services.AddSingleton<IObjectMapper, SimpleMapper>();
-            services.AddSingleton<IDeploymentEnvironment, DeploymentEnvironment>();
-            services.AddSingleton<IConfigureOptions<ApplicationInsightsServiceOptions>, ApplicationInsightsServiceOptionsSetup>();
+            //services.AddSingleton<IDeploymentEnvironment, DeploymentEnvironment>();
+          //  services.AddSingleton<IConfigureOptions<ApplicationInsightsServiceOptions>, ApplicationInsightsServiceOptionsSetup>();
 
             if (string.IsNullOrEmpty(Configuration["AppSettings:AzureStorageConnectionString"]))
             {
@@ -84,36 +49,27 @@ namespace sdncast.nl
             }
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.Use((context, next) => context.Request.Path.StartsWithSegments("/ping")
-                ? context.Response.WriteAsync("pong")
-                : next()
-            );
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             else
             {
-                loggerFactory.AddApplicationInsights(app.ApplicationServices, LogLevel.Information);
-                app.UseExceptionHandler("/error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
             }
 
-            // app.UseHsts();
-
-
-            app.UseRewriter(new RewriteOptions()
-                .AddIISUrlRewrite(env.ContentRootFileProvider, "urlRewrite.config"));
-
-            app.UseStatusCodePages();
-
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseAuthentication();
-
-            app.UseMvc();
+            app.UseRouting(routes =>
+            {
+                routes.MapRazorPages();
+                routes.MapComponentHub<App>("app");
+            });
         }
     }
 }

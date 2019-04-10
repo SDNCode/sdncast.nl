@@ -1,0 +1,38 @@
+@using sdncast.nl.Models
+
+<div class="col-sm-6 col-md-4">
+    <div class="img-thumbnail youtube-show bottom-buffer mx-auto">
+        <a href="@Item.Url" title="Watch this episode">
+            <div>
+                <img class="img-fluid mx-auto" src="@Item.ThumbnailUrl" alt="Thumbnail of episode" />
+            </div>
+        </a>
+        <div class="caption text-center">
+            <h4>
+                <a href="@Item.Url" title="Watch this episode">
+                    @if (Item.HasTitle)
+                    {
+                    @Item.Title<br />
+                    }
+                </a>
+                @if (string.Equals(Item.LiveBroadcastContent, "upcoming"))
+                {
+                <span class="badge badge-warning">UPCOMING</span>
+                }
+                else
+                {
+                <span class="show-date">@Item.ShowDate.DateTime.ToString("dd MMM, yyyy")</span>
+                @if (Item.IsNew)
+                    {
+                <span class="badge badge-success badge-new-show">New</span>
+                    }
+                }
+            </h4>
+        </div>
+    </div>
+</div>
+
+@functions{
+    [Parameter]
+    public Show Item {get; set;}
+}

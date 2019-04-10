@@ -1,0 +1,26 @@
+﻿@inherits LayoutComponentBase
+@*@inject Microsoft.AspNetCore.Hosting.IHostingEnvironment HostingEnvironment*@
+
+
+
+@*@RenderSection("PreContent", required: false)*@
+
+<div class="container body-content">
+    @Body
+</div>
+
+
+
+
+@*<!-- IsHttps: @Context.Request.IsHttps -->
+    <!-- Host: @Context.Request.Host.Host -->
+    <!-- ViewPath: @ViewContext.View.Path -->
+    <!-- ViewAssembly: @GetType().Assembly.FullName -->
+    <cache>
+        <!-- Environment: @HostingEnvironment.EnvironmentName -->
+        <!-- Application: @Microsoft.Extensions.PlatformAbstractions.PlatformServices.Default.Application.ApplicationName, @Microsoft.Extensions.PlatformAbstractions.PlatformServices.Default.Application.ApplicationVersion -->
+        <!-- Deployment: @DeploymentEnvironment.DeploymentId -->
+        <!-- Framework: @DeploymentEnvironment.RuntimeFramework -->
+        <!-- OS: @System.Runtime.InteropServices.RuntimeInformation.OSDescription @System.Runtime.InteropServices.RuntimeInformation.OSArchitecture -->
+        <!-- Machine: @Environment.MachineName -->
+    </cache>*@
