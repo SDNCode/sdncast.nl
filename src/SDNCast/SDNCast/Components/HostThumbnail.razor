@@ -1,0 +1,15 @@
+﻿<div class="col-lg-4 text-center">
+    <a href="@BioLink">
+        <img src="@Avatar" class="rounded-circle" alt="@Name image" height="140" width="140">
+        <h3>@Name</h3>
+    </a>
+</div>
+@code {
+
+    [Parameter]
+    private string Name { get; set; }
+    [Parameter]
+    private string Avatar { get; set; }
+    [Parameter]
+    private string BioLink { get; set; }
+    }
