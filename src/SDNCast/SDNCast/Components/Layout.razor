@@ -1,0 +1,15 @@
+﻿<RootView>
+    <SiteHeader Title="@Title">
+        <MainMenu />
+        @PageHeader
+    </SiteHeader>
+
+    <SiteBody>@PageBody</SiteBody>
+    <SiteFooter />
+</RootView>
+@code{
+    [Parameter] private string Title { get; set; }
+    [Parameter] private RenderFragment PageHeader { get; set; }
+    [Parameter] private RenderFragment PageBody { get; set; }
+
+}
