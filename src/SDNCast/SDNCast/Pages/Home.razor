@@ -1,11 +1,34 @@
 ﻿@page "/"
+@inject ILiveShowDetailsService liveShowDetailsService
+@inject IObjectMapper mapper
+@using System.Net;
+
 <Layout>
     <PageHeader>
-        TODO: Banner
+        <HeroBanner Context="banner" />
     </PageHeader>
     <PageBody>
 
-    TODO: Video list
+        TODO: Video list
     </PageBody>
 </Layout>
 
+
+@code  {
+
+    protected override async Task OnInitAsync()
+    {
+        var liveShowDetails = await liveShowDetailsService.LoadAsync();
+        //string playlist = _appSettings.YouTubeCastPlaylistId;
+        //var showList = await _showsService.GetRecordedShowsAsync(User, disableCache ?? false, playlist);
+
+        mapper.Map(liveShowDetails, banner);
+
+        
+
+        //_mapper.Map(showList, this);
+    }
+
+    private HeroBannerModel banner = new HeroBannerModel();
+
+}
