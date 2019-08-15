@@ -1,0 +1,40 @@
+﻿<div class="col-sm-6 col-md-4">
+    <div class="img-thumbnail youtube-show bottom-buffer mx-auto">
+        <a href="@Context.Url" title="Watch this episode">
+            <div>
+                <img class="img-fluid mx-auto" src="@Context.ThumbnailUrl" alt="Thumbnail of episode" />
+            </div>
+        </a>
+        <div class="caption text-center">
+            <h4>
+                <a href="@Context.Url" title="Watch this episode">
+                    @if (Context.HasTitle)
+                    {
+                    @Context.Title<br />
+                    }
+                </a>
+                @if (string.Equals(Context.LiveBroadcastContent, "upcoming"))
+                {
+                <span class="badge badge-warning">UPCOMING</span>
+                }
+                else
+                {
+                <span class="show-date">@Context.ShowDate.DateTime.ToString("dd MMM, yyyy")</span>
+                @if (Context.IsNew)
+                    {
+                <span class="badge badge-success badge-new-show">New</span>
+                    }
+                }
+            </h4>
+        </div>
+    </div>
+</div>
+
+
+@code {
+
+
+    [Parameter]
+    public Show Context { get; set; }
+
+}
