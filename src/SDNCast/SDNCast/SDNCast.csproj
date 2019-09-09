@@ -10,6 +10,7 @@
     <PackageReference Include="Google.Apis.YouTube.v3" Version="1.40.3.1663" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0-preview9-19453-02" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.AzureAD.UI" Version="3.0.0-preview9.19424.4" />
   </ItemGroup>
 
 </Project>
