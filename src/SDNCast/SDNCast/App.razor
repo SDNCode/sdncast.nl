@@ -1,20 +1,23 @@
-﻿<CascadingAuthenticationState>
-    <Router AppAssembly="typeof(Startup).Assembly">
+﻿<Router AppAssembly="@typeof(Program).Assembly">
+    <Found Context="routeData">
+        <AuthorizeRouteView RouteData="@routeData">
+            <NotAuthorized>
+                <Layout Title="Secured area">
+                    <PageBody>
+                        Sorry, this page requires authorization
+                    </PageBody>
+                </Layout>
+            </NotAuthorized>
+        </AuthorizeRouteView>
 
-        <NotFoundContent>
+    </Found>
+    <NotFound>
+        <CascadingAuthenticationState>
             <Layout Title="Oops">
                 <PageBody>
                     Sorry, there's nothing at this address.
                 </PageBody>
             </Layout>
-        </NotFoundContent>
-        <NotAuthorizedContent>
-            <Layout Title="Secured area">
-                <PageBody>
-                    Sorry, this page requires authorization
-                </PageBody>
-            </Layout>
-        </NotAuthorizedContent>
-    </Router>
-</CascadingAuthenticationState>
-
+        </CascadingAuthenticationState>
+    </NotFound>
+</Router>

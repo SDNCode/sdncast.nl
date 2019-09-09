@@ -4,7 +4,7 @@
 @inject IShowsService showsService
 @inject IOptions<AppSettings> appSettings
 @inject AuthenticationStateProvider authenticationStateProvider
-@inject IUriHelper UriHelper
+@inject NavigationManager NavigationManager
 
 @using System.Net;
 @using Microsoft.AspNetCore.WebUtilities;
@@ -49,7 +49,7 @@
     {
         var authState = await authenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
-        var uri = new Uri(UriHelper.GetAbsoluteUri());
+        var uri = new Uri(NavigationManager.Uri);
         QueryHelpers.ParseQuery(uri.Query).TryGetValue("disableCache", out var disableCacheString);
         bool.TryParse(disableCacheString, out bool disableCache);
 
