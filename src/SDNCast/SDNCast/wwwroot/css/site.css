@@ -1,5 +1,21 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+.hangout-embed {
+    background: #212121;
+    -moz-box-shadow: 0 0 5px 5px rgba(255, 255, 255, .4);
+    -webkit-box-shadow: 0 0 5px 5px rgba(255, 255, 255, .4);
+    box-shadow: 0 0 5px 5px rgba(255, 255, 255, .4);
+    margin-top: 30px;
+}
+
+.embed-responsive {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    overflow: hidden;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Arial, Helvetica, sans-serif;
     padding-bottom: 20px;

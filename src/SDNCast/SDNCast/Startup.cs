@@ -34,7 +34,14 @@ namespace SDNCast
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<ILiveShowDetailsService, FileSystemLiveShowDetailsService>();
+            if (string.IsNullOrEmpty(Configuration["AppSettings:AzureStorageConnectionString"]))
+            {
+                services.AddSingleton<ILiveShowDetailsService, FileSystemLiveShowDetailsService>();
+            }
+            else
+            {
+                services.AddSingleton<ILiveShowDetailsService, AzureStorageLiveShowDetailsService>();
+            }
             services.AddSingleton<IObjectMapper, SimpleMapper>();
             services.AddScoped<IShowsService, YouTubeShowsService>();
             services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
