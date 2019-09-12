@@ -1,7 +1,17 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
-html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, Helvetica, sans-serif;
+    padding-bottom: 20px;
+}
+footer {
+    margin-top:100px;
+    display: block;
+    text-align: -webkit-center;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Segoe UI Light', 'Segoe UI', Tahoma, Arial, Helvetica, sans-serif;
 }
 
 a {
