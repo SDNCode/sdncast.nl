@@ -7,9 +7,9 @@
     <SiteBody>@PageBody</SiteBody>
     <SiteFooter />
 </RootView>
+
 @code{ 
     [Parameter] public string Title { get; set; }
     [Parameter] public RenderFragment PageHeader { get; set; }
     [Parameter] public RenderFragment PageBody { get; set; }
-
 }
