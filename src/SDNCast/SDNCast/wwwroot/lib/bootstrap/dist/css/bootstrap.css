@@ -4431,7 +4431,7 @@ input[type="button"].btn-block {
     -ms-flex-pack: start;
     justify-content: flex-start;
   }
-  .navbar-expand-sm .navbar-nav {
+    .navbar-expand-sm .navbar-nav {
     -ms-flex-direction: row;
     flex-direction: row;
   }
