@@ -1,0 +1,20 @@
+﻿@inherits PlayListBase;
+
+@if (showPreviousShows)
+{
+    <div class="row">
+        @foreach (var show in PreviousShows)
+        {
+            <ShowThumbnail Context="show" />
+        }
+    </div>
+
+    @if (showMoreShowsUrl)
+    {
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a href="@MoreShowsUrl" class="btn btn-primary">More Recordings</a>
+            </div>
+        </div>
+    }
+}

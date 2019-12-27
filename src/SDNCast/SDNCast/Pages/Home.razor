@@ -1,70 +1,11 @@
-﻿@page "/"
-@inject ILiveShowDetailsService liveShowDetailsService
-@inject IObjectMapper mapper
-@inject IShowsService showsService
-@inject IOptions<AppSettings> appSettings
-@inject AuthenticationStateProvider authenticationStateProvider
-@inject NavigationManager NavigationManager
-
-@using System.Net;
-@using Microsoft.AspNetCore.WebUtilities;
-@using System.Linq;
+﻿@inherits HomeBase;
+@page "/"
 
 <Layout>
     <PageHeader>
         <HeroBanner Context="banner" />
     </PageHeader>
     <PageBody>
-
-        @if (showPreviousShows)
-        {
-            <h2 class="col-md-12 text-center">Previous Recorded SDN Casts</h2>
-
-            <div class="row">
-                @foreach (var show in PreviousShows)
-                {
-                    <ShowThumbnail Context="show" />
-                }
-            </div>
-
-            @if (showMoreShowsUrl)
-            {
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <a href="@MoreShowsUrl" class="btn btn-primary">More Recordings</a>
-                    </div>
-                </div>
-            }
-        }
+        <PlayList PlayListId="PLC5P51a_60YH91NE65bmUXgVxPsfCaxtC"></PlayList>
     </PageBody>
 </Layout>
-
-
-@code  {
-
-    private bool showPreviousShows;
-    private bool showMoreShowsUrl;
-
-    protected override async Task OnInitializedAsync()
-    {
-        var authState = await authenticationStateProvider.GetAuthenticationStateAsync();
-        var user = authState.User;
-        var uri = new Uri(NavigationManager.Uri);
-        QueryHelpers.ParseQuery(uri.Query).TryGetValue("disableCache", out var disableCacheString);
-        bool.TryParse(disableCacheString, out bool disableCache);
-
-        var liveShowDetails = await liveShowDetailsService.LoadAsync();
-        string playlist = appSettings.Value.YouTubeCastPlaylistId;
-        var showList = await showsService.GetRecordedShowsAsync(user, disableCache, playlist);
-
-        mapper.Map(liveShowDetails, banner);
-        mapper.Map(showList, this);
-        showPreviousShows = PreviousShows.Count() > 0;
-        showMoreShowsUrl = !string.IsNullOrEmpty(MoreShowsUrl);
-    }
-
-    private HeroBannerModel banner = new HeroBannerModel();
-    public IEnumerable<Show> PreviousShows { get; set; }
-    public string MoreShowsUrl { get; set; }
-
-}
