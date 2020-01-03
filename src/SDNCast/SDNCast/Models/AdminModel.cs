@@ -1,9 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SDNCast.Models
 {
@@ -22,8 +18,9 @@ namespace SDNCast.Models
         [DateAfterNow(TimeZoneId = "Central Europe Standard Time")]
         public DateTime? NextShowDatePst { get; set; }
 
-        public string NextShowDatePstString { 
-            get { return NextShowDatePst.Value.ToString("MM/dd/yyyy HH:mm"); } 
+        public string NextShowDatePstString
+        {
+            get { return NextShowDatePst.Value.ToString("MM/dd/yyyy HH:mm"); }
             set
             {
                 NextShowDatePst = DateTime.Parse(value);
@@ -35,12 +32,8 @@ namespace SDNCast.Models
 
         public string NextShowDateSuggestionCetPM { get; set; }
 
-       
-
         public AppSettings AppSettings { get; set; }
 
         public string EnvironmentName { get; set; }
-
-        
     }
 }

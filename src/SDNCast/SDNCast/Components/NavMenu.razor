@@ -1,4 +1,6 @@
-﻿<button class="navbar-toggler" 
+﻿@inherits NavMenuBase;
+
+<button class="navbar-toggler" 
         type="button" 
         data-toggle="collapse" 
         data-target="#navbarSupportedContent" 
@@ -14,14 +16,17 @@
         <li class="nav-item">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">Home</NavLink>
         </li>
-        <li class="nav-item">
-            <NavLink class="nav-link text-nowrap" href="livecoding">Live Coding</NavLink>
-        </li>
-        <li class="nav-item">
-            <NavLink class="nav-link text-nowrap" href="livecodingmaarten">Live Coding Maarten</NavLink>
-        </li>
-        <li class="nav-item">
-            <NavLink class="nav-link text-nowrap" href="livecodingfanie">Live Coding Fanie</NavLink>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Live Coding
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <!-- Load from App Settings -->
+
+                <NavLink class="dropdown-item" href="livecodingmaarten">Maarten</NavLink>
+                <NavLink class="dropdown-item" href="livecodingfanie">Fanie</NavLink>
+                <NavLink class="dropdown-item" href="livecodingroy">Roy</NavLink>
+            </div>
         </li>
         <li class="nav-item">
             <NavLink class="nav-link" href="admin">Admin</NavLink>
@@ -39,15 +44,3 @@
         </li>
     </ul>
 </div>
-
-
-@code {
-    bool collapseNavMenu = true;
-
-    string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}

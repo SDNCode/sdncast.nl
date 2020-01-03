@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace SDNCast
+﻿namespace SDNCast
 {
     public class AppSettings
     {
@@ -14,5 +9,6 @@ namespace SDNCast
         public string AzureStorageConnectionString { get; set; }
         public string AzureStorageBlobName { get; set; }
         public string AzureStorageContainerName { get; set; }
+        public string[] PlaylistItems { get; set; }
     }
 }
