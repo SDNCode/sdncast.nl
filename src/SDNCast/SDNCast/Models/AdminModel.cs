@@ -7,7 +7,6 @@ namespace SDNCast.Models
     {
         [Display(Name = "Live Show Embed URL", Description = "URL for embedding the live show")]
         [DataType(DataType.Url)]
-        [Url]
         public string LiveShowEmbedUrl { get; set; }
 
         [Display(Name = "Live Show HTML", Description = "HTML content for the live show")]

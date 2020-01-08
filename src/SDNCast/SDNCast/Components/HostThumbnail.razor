@@ -1,8 +1,8 @@
 ﻿@inherits HostThumbnailBase;
 
-    <div class="col-lg-4 text-center">
+    <div class="col-lg-4 text-center mt-4">
         <a href="@BioLink" target="_blank">
-            <img src="@Avatar" class="rounded-circle" alt="@Name image" height="140" width="140">
+            <img class="rounded-circle neumorphism" src="@Avatar" alt="@Name image" height="140" width="140">
             <h3>@Name</h3>
         </a>
         @if (!string.IsNullOrEmpty(TwitterAccount))

@@ -1,5 +1,14 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+.show-date {
+    font-size:medium;
+    font-weight: bold;
+}
+
+.show-title {
+    font-size: large;
+}
+
 .hangout-embed {
     background: #212121;
     -moz-box-shadow: 0 0 5px 5px rgba(255, 255, 255, .4);
@@ -19,9 +28,17 @@
 body {
     font-family: 'Segoe UI', Tahoma, Arial, Helvetica, sans-serif;
     padding-bottom: 20px;
+    background: #EEEEEE
 }
+
+.neumorphism {
+    box-shadow: 
+        -12px -12px 12px 0 rgba(255,255,255,1), 
+        6px 6px 12px 0 rgba(0, 0, 0, .51);
+}
+
 footer {
-    margin-top:100px;
+    margin-top: 100px;
     display: block;
     text-align: center;
 }
