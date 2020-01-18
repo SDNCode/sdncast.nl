@@ -7,10 +7,11 @@
         <div class="admin-screen">
             <h2>SDN Cast Admin - @AdminModel.EnvironmentName</h2>
 
-            <EditForm Model="@AdminModel" OnValidSubmit="@HandleValidSubmit">
+            <EditForm Model="@AdminModel" OnSubmit="@HandleSubmit">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
                 <h4>Live Show Details</h4>
+
                 <hr />
                 @if (ShowSuccessMessage)
                 {
@@ -28,6 +29,7 @@
 
                     </div>
                 </div>
+
                 <div class="form-group row">
                     <label for="LiveShowEmbedUrl" class="col-md-3 col-form-label font-weight-bold">Live show embed URL</label>
                     <div class="col-md-5">
@@ -35,6 +37,7 @@
                         <ValidationMessage For="()=>AdminModel.LiveShowEmbedUrl" />
                     </div>
                 </div>
+
                 <div class="form-group row">
                     <label for="LiveShowHtml" class="col-md-3 col-form-label font-weight-bold">Live show HTML</label>
                     <div class="col-md-5">
@@ -42,90 +45,28 @@
                         <ValidationMessage For="()=>AdminModel.LiveShowHtml" />
                     </div>
                 </div>
-                <div class="input-group row" id="nextShowDate">
-                    <label for="NextShowDatePst" class="col-md-3 col-form-label font-weight-bold">Next show date PST</label>
-                    <div class="col-md-5">
-                        <InputText class="form-control html-input" id="NextShowDatePst" @bind-Value="@AdminModel.NextShowDatePstString" />
 
-                        <div class="input-group-append">
-                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Next Thursday <span class="caret"></span></button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#" data-suggestion="@AdminModel.NextShowDateSuggestionCetPM">20:00 PM</a>
-                            </div>
-                        </div>
+                <div class="form-group row" id="nextShowDate">
+                    <label for="NextShowDateCET" class="col-md-3 col-form-label font-weight-bold">Next show date</label>
+                    <div class="col-md-5">
+                        <InputText class="form-control html-input" id="NextShowDateCET" @bind-Value="@AdminModel.NextShowDateCETString" />
+                        <ValidationMessage For="()=>AdminModel.NextShowDateCETString" />
                     </div>
-                    <ValidationMessage For="()=>AdminModel.NextShowDatePstString" />
                 </div>
+
                 <div class="form-group row">
                     <div class="offset-md-3 col-md-9">
-                        <span class="col-md-4">
-                            Central Europe Standard Time
-                        </span>
+                        <button type="button" class="btn btn-primary" @onclick="OnSelectNextThursday">Select Next Thursday</button>
                     </div>
                 </div>
+
                 <div class="form-group row">
                     <div class="offset-md-3 col-md-9">
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </div>
+
             </EditForm>
-
-            <form asp-page-handler="ClearCache" method="post" class="form-horizontal" role="form">
-                <h4>YouTube Settings</h4>
-                <hr />
-                <div class="form-group row">
-                    <label asp-for="AppSettings.YouTubeCastPlaylistId" class="col-md-3 col-form-label font-weight-bold"></label>
-                    <div class="col-md-4">
-                        <p class="form-control-static">@AdminModel.AppSettings.YouTubeCastPlaylistId</p>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label asp-for="AppSettings.YouTubeLiveEventsPlaylistId" class="col-md-3 col-form-label font-weight-bold"></label>
-                    <div class="col-md-4">
-                        <p class="form-control-static">@AdminModel.AppSettings.YouTubeLiveEventsPlaylistId</p>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label asp-for="AppSettings.YouTubeApplicationName" class="col-md-3 col-form-label font-weight-bold"></label>
-                    <div class="col-md-3">
-                        <p class="form-control-static click-to-show" data-hidden-value="@AdminModel.AppSettings.YouTubeApplicationName">click to show</p>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label asp-for="AppSettings.YouTubeApiKey" class="col-md-3 col-form-label font-weight-bold"></label>
-                    <div class="col-md-4">
-                        <p class="form-control-static click-to-show" data-hidden-value="@AdminModel.AppSettings.YouTubeApiKey">click to show</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="offset-md-3 col-md-9">
-                        <button type="submit" class="btn btn-danger">Clear YouTube Cache</button>
-                    </div>
-                </div>
-            </form>
-
-            <div class="form-horizontal">
-                <h4>Azure Storage Settings</h4>
-                <hr />
-                <div class="form-group row">
-                    <label asp-for="AppSettings.AzureStorageConnectionString" class="col-md-3 col-form-label font-weight-bold"></label>
-                    <div class="col-md-4">
-                        <p class="form-control-static click-to-show" data-hidden-value="@(AdminModel.AppSettings.AzureStorageConnectionString ?? "[none]")">click to show</p>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label asp-for="AppSettings.AzureStorageContainerName" class="col-md-3 col-form-label font-weight-bold"></label>
-                    <div class="col-md-4">
-                        <p class="form-control-static">@AdminModel.AppSettings.AzureStorageContainerName</p>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label asp-for="AppSettings.AzureStorageBlobName" class="col-md-3 col-form-label font-weight-bold"></label>
-                    <div class="col-md-4">
-                        <p class="form-control-static">@AdminModel.AppSettings.AzureStorageBlobName</p>
-                    </div>
-                </div>
-            </div>
         </div>
     </PageBody>
 </Layout>

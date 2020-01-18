@@ -1,6 +1,5 @@
-﻿<div class="content px-4 container">
+﻿@inherits SiteBodyBase;
+
+<div class="content px-4 container">
     @ChildContent
 </div>
-@code{
-    [Parameter] public RenderFragment ChildContent { get; set; }
-}

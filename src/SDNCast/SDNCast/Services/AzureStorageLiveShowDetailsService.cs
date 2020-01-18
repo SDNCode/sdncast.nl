@@ -1,11 +1,14 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
-using SDNCast.Models;
-using System;
+﻿using System;
 using System.Threading.Tasks;
-using Microsoft.WindowsAzure.Storage.Blob;
+
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
+
+using Newtonsoft.Json;
+
+using SDNCast.Models;
 
 namespace SDNCast.Services
 {
@@ -85,7 +88,7 @@ namespace SDNCast.Services
 
             var fileContents = JsonConvert.SerializeObject(liveShowDetails);
 
-            var started = Timing.GetTimestamp();
+            // var started = Timing.GetTimestamp();
             await blockBlob.UploadTextAsync(fileContents);
         }
 

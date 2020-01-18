@@ -1,15 +1,11 @@
-﻿<header class="jumbotron sdncast">
+﻿@inherits SiteHeaderBase;
+
+<header class="jumbotron sdncast">
     <div class="container">
         @ChildContent
         @if (!string.IsNullOrEmpty(Title))
         {
             <h1 class="col-md-12 text-center">@Title</h1>
         }
-
     </div>
 </header>
-
-@code{
-    [Parameter] public RenderFragment ChildContent { get; set; }
-    [Parameter] public string Title { get; set; }
-}

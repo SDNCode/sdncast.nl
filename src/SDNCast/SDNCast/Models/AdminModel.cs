@@ -15,14 +15,30 @@ namespace SDNCast.Models
 
         [Display(Name = "Next Show Date/time", Description = "Exact date and time of the next live show in Pacific Time")]
         [DateAfterNow(TimeZoneId = "Central Europe Standard Time")]
-        public DateTime? NextShowDatePst { get; set; }
+        public DateTime? NextShowDateCET { get; set; }
 
-        public string NextShowDatePstString
+        public string NextShowDateCETString
         {
-            get { return NextShowDatePst.Value.ToString("MM/dd/yyyy HH:mm"); }
+            get
+            {
+                if (NextShowDateCET != null)
+                {
+                    return NextShowDateCET.Value.ToString("MM/dd/yyyy HH:mm");
+                }
+
+                return string.Empty;
+            }
             set
             {
-                NextShowDatePst = DateTime.Parse(value);
+                try
+                {
+                    DateTime nextShow = DateTime.Parse(value);
+                    NextShowDateCET = nextShow;
+                }
+                catch (Exception)
+                {
+                    NextShowDateCET = null;
+                }
             }
         }
 

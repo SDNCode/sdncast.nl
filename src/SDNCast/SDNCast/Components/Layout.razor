@@ -1,4 +1,6 @@
-﻿<RootView>
+﻿@inherits LayoutBase;
+
+<RootView>
     <SiteHeader Title="@Title">
         <MainMenu />
         @PageHeader
@@ -7,9 +9,3 @@
     <SiteBody>@PageBody</SiteBody>
     <SiteFooter />
 </RootView>
-
-@code{ 
-    [Parameter] public string Title { get; set; }
-    [Parameter] public RenderFragment PageHeader { get; set; }
-    [Parameter] public RenderFragment PageBody { get; set; }
-}

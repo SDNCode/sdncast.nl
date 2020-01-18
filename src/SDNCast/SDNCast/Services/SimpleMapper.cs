@@ -9,8 +9,7 @@ namespace SDNCast.Services
 {
     public class SimpleMapper : IObjectMapper
     {
-        private readonly Expression _emptyExp = Expression.Empty();
-        private ConcurrentDictionary<Tuple<Type, Type>, Delegate> _mapCache = new ConcurrentDictionary<Tuple<Type, Type>, Delegate>();
+        private readonly ConcurrentDictionary<Tuple<Type, Type>, Delegate> _mapCache = new ConcurrentDictionary<Tuple<Type, Type>, Delegate>();
 
         public TDest Map<TSource, TDest>(TSource source, TDest dest)
         {

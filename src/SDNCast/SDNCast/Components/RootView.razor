@@ -1,8 +1,5 @@
-﻿<div class="main">
+﻿@inherits RootViewBase;
+
+<div class="main">
     @ChildContent
 </div>
-
-@code{
-    [Parameter] public RenderFragment ChildContent { get; set; }
-
-}

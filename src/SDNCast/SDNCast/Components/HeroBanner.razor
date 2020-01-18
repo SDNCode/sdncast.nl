@@ -1,5 +1,6 @@
-﻿@using System.Net;
-@using SDNCast.Models;
+﻿@inherits HeroBannerBase;
+
+@using System.Net;
 
 <h1 class="text-center">
 
@@ -89,8 +90,4 @@ else
             <div class="g-ytsubscribe" data-channelid="UC3oE_YPB4AJVQSInC-yy3pw" data-layout="default" data-count="default"></div>
         </div>
     </div>
-}
-
-@code {
-    [Parameter] public HeroBannerModel Context { get; set; }
 }

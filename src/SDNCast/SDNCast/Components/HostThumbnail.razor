@@ -1,20 +1,20 @@
 ﻿@inherits HostThumbnailBase;
 
-    <div class="col-lg-4 text-center mt-4">
-        <a href="@BioLink" target="_blank">
-            <img class="rounded-circle neumorphism" src="@Avatar" alt="@Name image" height="140" width="140">
-            <h3>@Name</h3>
-        </a>
-        @if (!string.IsNullOrEmpty(TwitterAccount))
-        {
-            <div class="row justify-content-md-center align-content-center">
-                <i class="fab fa-twitter"></i><a href="https://twitter.com/@TwitterAccount" target="_blank">@Name</a>
-            </div>
-        }
-        @if (!string.IsNullOrEmpty(TwitchAccount))
-        {
-            <div class="row justify-content-md-center align-content-center">
-                <i class="fab fa-twitch"></i><a href="https://twitch.tv/@TwitchAccount" target="_blank">@Name</a>
-            </div>
-        }
+<div class="col-lg-4 text-center mt-4">
+    <a href="@BioLink" target="_blank">
+        <img class="rounded-circle neumorphism" src="@Avatar" alt="@Name image" height="140" width="140">
+        <h3>@Name</h3>
+    </a>
+    @if (!string.IsNullOrEmpty(TwitterAccount))
+    {
+        <div class="row justify-content-md-center align-content-center">
+            <i class="fab fa-twitter"></i><a href="https://twitter.com/@TwitterAccount" target="_blank">@Name</a>
         </div>
+    }
+    @if (!string.IsNullOrEmpty(TwitchAccount))
+    {
+        <div class="row justify-content-md-center align-content-center">
+            <i class="fab fa-twitch"></i><a href="https://twitch.tv/@TwitchAccount" target="_blank">@Name</a>
+        </div>
+    }
+</div>

@@ -1,4 +1,6 @@
-﻿<div class="col-sm-6 col-md-4">
+﻿@inherits ShowThumbnailBase;
+
+<div class="col-sm-6 col-md-4">
     <div class="img-thumbnail youtube-show bottom-buffer mx-auto mt-3 neumorphism">
         <a href="@Context.Url" title="Watch this episode">
             <div>
@@ -27,9 +29,3 @@
         </div>
     </div>
 </div>
-
-
-@code {
-    [Parameter]
-    public Show Context { get; set; }
-}

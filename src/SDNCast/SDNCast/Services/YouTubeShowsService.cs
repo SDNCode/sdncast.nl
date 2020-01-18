@@ -1,10 +1,4 @@
-﻿using Google.Apis.Services;
-using Google.Apis.YouTube.v3;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Options;
-using SDNCast.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -12,20 +6,25 @@ using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
+using Google.Apis.Services;
+using Google.Apis.YouTube.v3;
+
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Options;
+
+using SDNCast.Models;
+
 namespace SDNCast.Services
 {
     public class YouTubeShowsService : IShowsService
     {
-        private readonly IWebHostEnvironment _env;
         private readonly AppSettings _appSettings;
         private readonly IMemoryCache _cache;
 
         public YouTubeShowsService(
-            IWebHostEnvironment env,
             IOptions<AppSettings> appSettings,
             IMemoryCache memoryCache)
         {
-            _env = env;
             _appSettings = appSettings.Value;
             _cache = memoryCache;
         }
@@ -61,44 +60,43 @@ namespace SDNCast.Services
 
         private async Task<ShowList> GetShowsList(string playlist)
         {
-            using (var client = new YouTubeService(new BaseClientService.Initializer
+            using var client = new YouTubeService(new BaseClientService.Initializer
             {
                 ApplicationName = _appSettings.YouTubeApplicationName,
                 ApiKey = _appSettings.YouTubeApiKey
-            }))
+            });
+
+            var listRequest = client.PlaylistItems.List("snippet");
+            listRequest.PlaylistId = playlist;
+            listRequest.MaxResults = 5 * 3; // 5 rows of 3 episodes
+
+            var playlistItems = await listRequest.ExecuteAsync();
+
+            var result = new ShowList
             {
-                var listRequest = client.PlaylistItems.List("snippet");
-                listRequest.PlaylistId = playlist;
-                listRequest.MaxResults = 5 * 3; // 5 rows of 3 episodes
-
-                var playlistItems = await listRequest.ExecuteAsync();
-
-                var result = new ShowList
+                PreviousShows = playlistItems.Items.Select(item => new Show
                 {
-                    PreviousShows = playlistItems.Items.Select(item => new Show
-                    {
-                        Provider = "YouTube",
-                        ProviderId = item.Snippet.ResourceId.VideoId,
-                        Title = GetUsefulBitsFromTitle(item.Snippet.Title),
-                        Description = item.Snippet.Description,
-                        ThumbnailUrl = item.Snippet.Thumbnails.High.Url,
-                        Url = GetVideoUrl(item.Snippet.ResourceId.VideoId, item.Snippet.PlaylistId, item.Snippet.Position ?? 0)
-                    }).ToList()
-                };
+                    Provider = "YouTube",
+                    ProviderId = item.Snippet.ResourceId.VideoId,
+                    Title = GetUsefulBitsFromTitle(item.Snippet.Title),
+                    Description = item.Snippet.Description,
+                    ThumbnailUrl = item.Snippet.Thumbnails.High.Url,
+                    Url = GetVideoUrl(item.Snippet.ResourceId.VideoId, item.Snippet.PlaylistId, item.Snippet.Position ?? 0)
+                }).ToList()
+            };
 
-                foreach (var show in result.PreviousShows)
-                {
-                    show.ShowDate = await GetVideoPublishDate(client, show.ProviderId);
-                    show.LiveBroadcastContent = await GetVideoLiveBroadcastContent(client, show.ProviderId);
-                }
-
-                if (!string.IsNullOrEmpty(playlistItems.NextPageToken))
-                {
-                    result.MoreShowsUrl = GetPlaylistUrl(playlist);
-                }
-
-                return result;
+            foreach (var show in result.PreviousShows)
+            {
+                show.ShowDate = await GetVideoPublishDate(client, show.ProviderId);
+                show.LiveBroadcastContent = await GetVideoLiveBroadcastContent(client, show.ProviderId);
             }
+
+            if (!string.IsNullOrEmpty(playlistItems.NextPageToken))
+            {
+                result.MoreShowsUrl = GetPlaylistUrl(playlist);
+            }
+
+            return result;
         }
 
         private async Task<DateTimeOffset> GetVideoPublishDate(YouTubeService client, string videoId)

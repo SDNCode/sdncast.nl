@@ -15,7 +15,7 @@ using SDNCast.Services;
 namespace SDNCast.Pages
 {
     [Authorize]
-    public class AdminComponentBase : ComponentBase
+    public class AdminComponentBaseBackup : ComponentBase
     {
         internal AdminModel AdminModel { get; set; } = new AdminModel();
 
@@ -84,11 +84,7 @@ namespace SDNCast.Pages
 
             if (isValid)
             {
-                var liveShowDetails = await LiveShowDetailsService.LoadAsync();
-                Mapper.Map(AdminModel, liveShowDetails);
-                await LiveShowDetailsService.SaveAsync(liveShowDetails);
-
-                SuccessMessage = "Live show details saved successfully!";
+                // 
             }
             else
             {
