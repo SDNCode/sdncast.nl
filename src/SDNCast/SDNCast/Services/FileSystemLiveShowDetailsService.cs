@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Caching.Memory;
-using Newtonsoft.Json;
-using SDNCast.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Caching.Memory;
+
+using Newtonsoft.Json;
+
+using SDNCast.Models;
 
 namespace SDNCast.Services
 {
@@ -17,28 +18,41 @@ namespace SDNCast.Services
 
         private readonly IMemoryCache _cache;
         private readonly string _filePath;
+        private readonly IWebHostEnvironment _env;
 
-        public FileSystemLiveShowDetailsService(IWebHostEnvironment webHostEnvironment, IMemoryCache cache)
+        public FileSystemLiveShowDetailsService(
+            IWebHostEnvironment webHostEnvironment,
+            IMemoryCache cache,
+            IWebHostEnvironment env)
         {
             _cache = cache;
             _filePath = Path.Combine(webHostEnvironment.ContentRootPath, FileName);
+            _env = env;
+        }
+
+        public void ClearCache()
+        {
+            _cache.Remove(CacheKey);
         }
 
         public async Task<LiveShowDetailsModel> LoadAsync()
         {
-            var result = _cache.Get<LiveShowDetailsModel>(CacheKey);
+            LiveShowDetailsModel liveShowDetails = _cache.Get<LiveShowDetailsModel>(CacheKey);
 
-            if (result == null)
+            if (liveShowDetails == null)
             {
-                result = await LoadFromFile();
+                liveShowDetails = await LoadFromFile();
 
-                _cache.Set(CacheKey, result, new MemoryCacheEntryOptions
+                bool isDevelopment = _env.EnvironmentName.Equals("Development", StringComparison.InvariantCultureIgnoreCase);
+                TimeSpan timespan = isDevelopment ? TimeSpan.FromMinutes(10) : TimeSpan.FromDays(1);
+
+                _cache.Set(CacheKey, liveShowDetails, new MemoryCacheEntryOptions
                 {
-                    AbsoluteExpiration = DateTimeOffset.MaxValue
+                    AbsoluteExpirationRelativeToNow = timespan
                 });
             }
 
-            return result;
+            return liveShowDetails;
         }
 
         public async Task SaveAsync(LiveShowDetailsModel liveShowDetails)

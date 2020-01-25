@@ -11,8 +11,8 @@
                 <DataAnnotationsValidator />
                 <ValidationSummary />
                 <h4>Live Show Details</h4>
-
                 <hr />
+
                 @if (ShowSuccessMessage)
                 {
                     <div class="alert alert-success alert-dismissible" role="alert">
@@ -67,6 +67,44 @@
                 </div>
 
             </EditForm>
+
+            <EditForm Model="@AdminModel" OnSubmit="@ClearCache">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <h4>YouTube Settings</h4>
+                <hr />
+
+                @if (ShowSuccessMessageClear)
+                {
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @SuccessMessageClear
+                    </div>
+                }
+
+            <div class="form-group row">
+                <label for="YouTubeCastPlaylistId" class="col-md-3 col-form-label font-weight-bold">YouTubeCastPlaylistId</label>
+                <div class="col-md-4">
+                    <p class="form-control-static" id="YouTubeCastPlaylistId">@AdminModel.AppSettings?.YouTubeCastPlaylistId</p>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="YouTubeLiveEventsPlaylistId" class="col-md-3 col-form-label font-weight-bold">YouTubeLiveEventsPlaylistId</label>
+                <div class="col-md-4">
+                    <p class="form-control-static" id="YouTubeLiveEventsPlaylistId">@AdminModel.AppSettings?.YouTubeLiveEventsPlaylistId</p>
+                </div>
+            </div>
+
+                <div class="form-group row">
+                    <div class="offset-md-3 col-md-9">
+                        <button type="submit" class="btn btn-primary btn-youtube">Clear YouTube Cache</button>
+                    </div>
+                </div>
+            
+            </EditForm>
+
         </div>
     </PageBody>
 </Layout>

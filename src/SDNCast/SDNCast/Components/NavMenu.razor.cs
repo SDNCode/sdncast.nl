@@ -2,7 +2,7 @@
 
 namespace SDNCast.Components
 {
-    public class NavMenuBase : ComponentBase
+    public partial class NavMenu : ComponentBase
     {
         bool collapseNavMenu = true;
 

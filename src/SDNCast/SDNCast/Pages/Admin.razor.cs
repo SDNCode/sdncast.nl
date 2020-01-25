@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 
 using SDNCast.Extensions;
@@ -27,8 +28,8 @@ namespace SDNCast.Pages
         [Inject]
         private ILiveShowDetailsService LiveShowDetailsService { get; set; }
 
-        //[Inject]
-        //private IMemoryCache MemoryCache { get; set; }
+        [Inject]
+        private IMemoryCache MemoryCache { get; set; }
 
         [Inject]
         private IOptions<AppSettings> AppSettings { get; set; }
@@ -49,6 +50,9 @@ namespace SDNCast.Pages
         [TempData]
         public string SuccessMessage { get; set; }
         public bool ShowSuccessMessage => !string.IsNullOrEmpty(SuccessMessage);
+
+        public string SuccessMessageClear { get; set; }
+        public bool ShowSuccessMessageClear => !string.IsNullOrEmpty(SuccessMessageClear);
 
         protected override async Task OnInitializedAsync()
         {
@@ -77,10 +81,21 @@ namespace SDNCast.Pages
             //return Page();
         }
 
+        protected async Task ClearCache()
+        {
+            LiveShowDetailsService.ClearCache();
+
+            //MemoryCache.Remove(AdminModel.AppSettings.YouTubeLiveEventsPlaylistId);
+            //MemoryCache.Remove(AdminModel.AppSettings.YouTubeCastPlaylistId);
+
+            SuccessMessageClear = "YouTube cache cleared successfully!";
+        }
+
+
         protected async Task HandleSubmit()
         {
             var isValid = editContext.Validate() &&
-                await ServerValidate(editContext);
+                ServerValidate(editContext);
 
             if (isValid)
             {
@@ -96,7 +111,7 @@ namespace SDNCast.Pages
             }
         }
 
-        private async Task<bool> ServerValidate(EditContext editContext)
+        private bool ServerValidate(EditContext editContext)
         {
             var ctx = editContext;
 

@@ -2,7 +2,7 @@
 
 namespace SDNCast.Components
 {
-    public class LayoutBase : ComponentBase
+    public partial class Layout : ComponentBase
     {
         [Parameter]
         public string Title { get; set; }

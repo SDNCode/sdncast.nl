@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Google.Apis.Services;
 using Google.Apis.YouTube.v3;
 
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 
@@ -20,13 +21,16 @@ namespace SDNCast.Services
     {
         private readonly AppSettings _appSettings;
         private readonly IMemoryCache _cache;
+        private readonly IWebHostEnvironment _env;
 
         public YouTubeShowsService(
             IOptions<AppSettings> appSettings,
-            IMemoryCache memoryCache)
+            IMemoryCache memoryCache,
+            IWebHostEnvironment env)
         {
             _appSettings = appSettings.Value;
             _cache = memoryCache;
+            _env = env;
         }
 
         public async Task<ShowList> GetRecordedShowsAsync(ClaimsPrincipal user, bool disableCache, string playlist)
@@ -43,19 +47,24 @@ namespace SDNCast.Services
 
             string CacheKey = playlist;
 
-            var result = _cache.Get<ShowList>(CacheKey);
+            ShowList showList = null;
 
-            if (result == null)
+            showList = _cache.Get<ShowList>(CacheKey);
+
+            if (showList == null)
             {
-                result = await GetShowsList(playlist);
+                showList = await GetShowsList(playlist);
 
-                _cache.Set(CacheKey, result, new MemoryCacheEntryOptions
+                bool isDevelopment = _env.EnvironmentName.Equals("Development", StringComparison.InvariantCultureIgnoreCase);
+                TimeSpan timespan = isDevelopment ? TimeSpan.FromMinutes(10) : TimeSpan.FromDays(1);
+
+                _cache.Set(CacheKey, showList, new MemoryCacheEntryOptions
                 {
-                    AbsoluteExpirationRelativeToNow = TimeSpan.FromDays(1)
+                    AbsoluteExpirationRelativeToNow = timespan
                 });
             }
 
-            return result;
+            return showList;
         }
 
         private async Task<ShowList> GetShowsList(string playlist)

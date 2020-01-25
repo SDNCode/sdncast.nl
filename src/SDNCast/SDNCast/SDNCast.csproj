@@ -24,9 +24,4 @@
 	  <Watch Include="**\*.cshtml;**\*.razor" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Watch Remove="Pages\Admin - Copy.razor" />
-    <Watch Remove="Pages\LiveCodingFanie.razor" />
-  </ItemGroup>
-
 </Project>

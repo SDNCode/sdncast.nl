@@ -12,7 +12,7 @@ using SDNCast.Services;
 
 namespace SDNCast.Components
 {
-    public class PlayListBase : ComponentBase
+    public partial class PlayList : ComponentBase
     {
         [Inject]
         ILiveShowDetailsService LiveShowDetailsService { get; set; }

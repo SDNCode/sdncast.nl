@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
@@ -18,24 +19,35 @@ namespace SDNCast.Services
 
         private readonly AppSettings _appSettings;
         private readonly IMemoryCache _cache;
+        private readonly IWebHostEnvironment _env;
 
-        public AzureStorageLiveShowDetailsService(IOptions<AppSettings> appSettings, IMemoryCache cache)
+        public AzureStorageLiveShowDetailsService(IOptions<AppSettings> appSettings, IMemoryCache cache, IWebHostEnvironment env)
         {
             _appSettings = appSettings.Value;
             _cache = cache;
+            _env = env;
+        }
+
+        public void ClearCache()
+        {
+            _cache.Remove(CacheKey);
         }
 
         public async Task<LiveShowDetailsModel> LoadAsync()
         {
-            var liveShowDetails = _cache.Get<LiveShowDetailsModel>(CacheKey);
+
+            LiveShowDetailsModel liveShowDetails = _cache.Get<LiveShowDetailsModel>(CacheKey);
 
             if (liveShowDetails == null)
             {
                 liveShowDetails = await LoadFromAzureStorage();
 
+                bool isDevelopment = _env.EnvironmentName.Equals("Development", StringComparison.InvariantCultureIgnoreCase);
+                TimeSpan timespan = isDevelopment ? TimeSpan.FromMinutes(10) : TimeSpan.FromDays(1);
+
                 _cache.Set(CacheKey, liveShowDetails, new MemoryCacheEntryOptions
                 {
-                    AbsoluteExpiration = DateTimeOffset.MaxValue
+                    AbsoluteExpirationRelativeToNow = timespan
                 });
             }
 

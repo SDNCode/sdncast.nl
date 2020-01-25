@@ -2,7 +2,7 @@
 
 namespace SDNCast.Components
 {
-    public class HostThumbnailBase : ComponentBase
+    public partial class HostThumbnail : ComponentBase
     {
         [Parameter]
         public string Name { get; set; }
@@ -18,5 +18,8 @@ namespace SDNCast.Components
 
         [Parameter]
         public string TwitchAccount { get; set; }
+
+        [Parameter]
+        public string YouTubeAccount { get; set; }
     }
 }

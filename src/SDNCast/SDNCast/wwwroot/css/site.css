@@ -1,5 +1,21 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+
+.btn-primary.btn-twitch {
+    background-color: #6441a5;
+    border-color: #6441a5;
+}
+
+.btn-primary.btn-youtube {
+    background-color: #c4302b;
+    border-color: #c4302b;
+}
+
+.btn-primary.btn-twitter {
+    background-color: #00acee;
+    border-color: #00acee;
+}
+
 .show-date {
     font-size:medium;
     font-weight: bold;

@@ -1,5 +1,6 @@
-﻿using SDNCast.Models;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+
+using SDNCast.Models;
 
 namespace SDNCast.Services
 {
@@ -8,5 +9,7 @@ namespace SDNCast.Services
         Task<LiveShowDetailsModel> LoadAsync();
 
         Task SaveAsync(LiveShowDetailsModel liveShowDetails);
+
+        void ClearCache();
     }
 }

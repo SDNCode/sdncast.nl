@@ -2,7 +2,7 @@
 
 namespace SDNCast.Components
 {
-    public class RootViewBase : ComponentBase
+    public partial class RootView : ComponentBase
     {
         [Parameter]
         public RenderFragment ChildContent { get; set; }

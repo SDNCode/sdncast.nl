@@ -77,10 +77,10 @@ namespace SDNCast.Pages
             //return Page();
         }
 
-        protected async Task HandleSubmit()
+        protected void HandleSubmit()
         {
             var isValid = editContext.Validate() &&
-                await ServerValidate(editContext);
+                ServerValidate(editContext);
 
             if (isValid)
             {
@@ -92,7 +92,7 @@ namespace SDNCast.Pages
             }
         }
 
-        private async Task<bool> ServerValidate(EditContext editContext)
+        private bool ServerValidate(EditContext editContext)
         {
             var ctx = editContext;
 

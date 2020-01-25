@@ -2,7 +2,7 @@
 
 namespace SDNCast.Components
 {
-    public class SiteBodyBase : ComponentBase
+    public partial class SiteBody : ComponentBase
     {
         [Parameter]
         public RenderFragment ChildContent { get; set; }
