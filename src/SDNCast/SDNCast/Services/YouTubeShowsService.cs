@@ -47,9 +47,7 @@ namespace SDNCast.Services
 
             string CacheKey = playlist;
 
-            ShowList showList = null;
-
-            showList = _cache.Get<ShowList>(CacheKey);
+            ShowList showList = _cache.Get<ShowList>(CacheKey);
 
             if (showList == null)
             {

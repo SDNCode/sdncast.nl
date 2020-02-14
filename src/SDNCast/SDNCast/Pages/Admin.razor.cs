@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 
 using SDNCast.Extensions;
@@ -28,8 +27,8 @@ namespace SDNCast.Pages
         [Inject]
         private ILiveShowDetailsService LiveShowDetailsService { get; set; }
 
-        [Inject]
-        private IMemoryCache MemoryCache { get; set; }
+        // [Inject]
+        // private IMemoryCache MemoryCache { get; set; }
 
         [Inject]
         private IOptions<AppSettings> AppSettings { get; set; }
@@ -81,7 +80,7 @@ namespace SDNCast.Pages
             //return Page();
         }
 
-        protected async Task ClearCache()
+        protected void ClearCache()
         {
             LiveShowDetailsService.ClearCache();
 
@@ -95,7 +94,7 @@ namespace SDNCast.Pages
         protected async Task HandleSubmit()
         {
             var isValid = editContext.Validate() &&
-                ServerValidate(editContext);
+                ServerValidate();
 
             if (isValid)
             {
@@ -111,14 +110,9 @@ namespace SDNCast.Pages
             }
         }
 
-        private bool ServerValidate(EditContext editContext)
+        private bool ServerValidate()
         {
-            var ctx = editContext;
-
             return true;
-            //var serverChecksValid;
-
-            //return serverChecksValid;
         }
 
         protected async void HandleValidSubmit()
