@@ -35,7 +35,6 @@ namespace SDNCast.Services
 
         public async Task<LiveShowDetailsModel> LoadAsync()
         {
-
             LiveShowDetailsModel liveShowDetails = _cache.Get<LiveShowDetailsModel>(CacheKey);
 
             if (liveShowDetails == null)
@@ -43,7 +42,7 @@ namespace SDNCast.Services
                 liveShowDetails = await LoadFromAzureStorage();
 
                 bool isDevelopment = _env.EnvironmentName.Equals("Development", StringComparison.InvariantCultureIgnoreCase);
-                TimeSpan timespan = isDevelopment ? TimeSpan.FromMinutes(10) : TimeSpan.FromDays(1);
+                TimeSpan timespan = isDevelopment ? TimeSpan.FromMinutes(360) : TimeSpan.FromDays(1);
 
                 _cache.Set(CacheKey, liveShowDetails, new MemoryCacheEntryOptions
                 {

@@ -1,6 +1,5 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
-
 .btn-primary.btn-twitch {
     background-color: #6441a5;
     border-color: #6441a5;
@@ -48,12 +47,14 @@ body {
 }
 
 .neumorphism {
-    box-shadow: 
-        -12px -12px 12px 0 rgba(255,255,255,1), 
+    margin: 10px 5px 10px;
+    box-shadow:
+        -12px -12px 12px 0 rgba(255,255,255,1),
         6px 6px 12px 0 rgba(0, 0, 0, .51);
 }
 
 footer {
+    background-color: #505c05;
     margin-top: 100px;
     display: block;
     text-align: center;
@@ -99,11 +100,6 @@ app {
 
 .nav-item {
     font-size: 0.9rem;
-    padding-bottom: 0.5rem;
-}
-
-.nav-item:last-of-type {
-    padding-bottom: 1rem;
 }
 
 .nav-item a:hover {
@@ -131,13 +127,15 @@ app {
     color: red;
 }
 
-@media (max-width: 767.98px) {
+/*767.98*/
+@media (max-width: 575.98px) {
     .main .top-row {
         display: none;
     }
 }
 
-@media (min-width: 768px) {
+/*768*/
+@media (min-width: 576px) {
     app {
         flex-direction: row;
     }

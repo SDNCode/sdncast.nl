@@ -44,7 +44,7 @@ namespace SDNCast.Services
                 liveShowDetails = await LoadFromFile();
 
                 bool isDevelopment = _env.EnvironmentName.Equals("Development", StringComparison.InvariantCultureIgnoreCase);
-                TimeSpan timespan = isDevelopment ? TimeSpan.FromMinutes(10) : TimeSpan.FromDays(1);
+                TimeSpan timespan = isDevelopment ? TimeSpan.FromMinutes(360) : TimeSpan.FromDays(1);
 
                 _cache.Set(CacheKey, liveShowDetails, new MemoryCacheEntryOptions
                 {

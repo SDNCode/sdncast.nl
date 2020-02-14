@@ -1,4 +1,8 @@
-﻿namespace SDNCast
+﻿using System.Collections.Generic;
+
+using SDNCast.Models;
+
+namespace SDNCast
 {
     public class AppSettings
     {
@@ -10,5 +14,6 @@
         public string AzureStorageBlobName { get; set; }
         public string AzureStorageContainerName { get; set; }
         public string[] PlaylistItems { get; set; }
+        public Dictionary<string, CastMemberType> CastMemberTypesDictionary { get; set; }
     }
 }

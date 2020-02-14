@@ -1,0 +1,13 @@
+﻿<div class="row col-md-12 justify-content-md-center">
+    <h2 class="font-weight-bold"><br />Some Title</h2>
+</div>
+
+@foreach (var castmember in CastMemberDictionary)
+{
+    <HostThumbnail Name=@castmember.Value.Name
+                   Avatar=@castmember.Value.Avatar
+                   BioLink=@castmember.Value.BioLink
+                   TwitterAccount=@castmember.Value.TwitterAccount
+                   TwitchAccount=@castmember.Value.TwitchAccount
+                   YouTubeAccount=@castmember.Value.YouTubeAccount />
+}
