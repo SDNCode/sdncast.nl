@@ -3,13 +3,17 @@
   "defaultProvider": "cdnjs",
   "libraries": [
     {
-      "library": "font-awesome@5.12.0-1",
+      "library": "font-awesome@5.12.1",
       "destination": "wwwroot/lib/font-awesome/"
     },
     {
       "provider": "unpkg",
       "library": "bootstrap@4.4.1",
       "destination": "wwwroot/lib/bootstrap/"
+    },
+    {
+      "library": "open-iconic@1.1.1",
+      "destination": "wwwroot/lib/open-iconic/"
     }
   ]
 }

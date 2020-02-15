@@ -1,8 +1,16 @@
-@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+@import url('../lib/open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 .btn-primary.btn-twitch {
     background-color: #6441a5;
     border-color: #6441a5;
+}
+
+.text-sdn {
+    color: #79AA06;
+}
+
+.background-sdn {
+    background-color: #79AA06
 }
 
 .btn-primary.btn-youtube {

@@ -15,8 +15,8 @@
             {
                 @if (membertypes.Key.Contains("Core"))
                 {
-                    <div class="row col-md-12 justify-content-md-center">
-                        <h2 class="font-weight-bold"><br />@membertypes.Key ;-)</h2>
+                    <div class="row col-md-12 display-4 mt-4 justify-content-md-center">
+                        @membertypes.Key
                     </div>
 
                     @foreach (var castmember in membertypes.Value.CastMemberDictionary)
@@ -35,8 +35,8 @@
             {
                 @if (membertypes.Key.Contains("Core") == false)
                 {
-                    <div class="row col-md-12 justify-content-md-center">
-                        <h2 class="font-weight-bold"><br />@membertypes.Key ;-)</h2>
+                    <div class="row col-md-12 display-4 mt-4 justify-content-md-center">
+                        @membertypes.Key ;-)
                     </div>
 
                     @foreach (var castmember in membertypes.Value.CastMemberDictionary)

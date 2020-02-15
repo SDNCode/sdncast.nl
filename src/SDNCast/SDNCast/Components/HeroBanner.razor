@@ -32,14 +32,16 @@ else
         {
             <div id="nextShowDetails"
                  data-utc-year="@Context.NextShowDateUtc.Value.Year"
-                 data-utc-month="@(Context.NextShowDateUtc.Value.Month-1)"
+                 data-utc-month="@(Context.NextShowDateUtc.Value.Month - 1)"
                  data-utc-day="@Context.NextShowDateUtc.Value.Day"
                  data-utc-hour="@Context.NextShowDateUtc.Value.Hour"
                  data-utc-min="@Context.NextShowDateUtc.Value.Minute">
                 <h2>Next SDN Cast will be streamed at</h2>
                 <h2>
                     <strong data-part="showTime" class="hidden">
-                        @Context.NextShowDateUtc.Value.ToString("u")
+                        @Context.NextShowDateUtc.Value.ToString("u") (UTC)
+                        Your Time:
+                        @Test()
                     </strong>
                 </h2>
                 <h2>
@@ -88,4 +90,12 @@ else
             <div class="g-ytsubscribe" data-channelid="UC3oE_YPB4AJVQSInC-yy3pw" data-layout="default" data-count="default"></div>
         </div>
     </div>
+}
+
+@code {
+
+    private string Test()
+    {
+        return Context.NextShowDateUtc == null ? "n/a" : ((DateTime) Context.NextShowDateUtc).ToLocalTime().ToString("u");
+    }
 }

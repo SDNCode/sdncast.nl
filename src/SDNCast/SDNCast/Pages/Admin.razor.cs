@@ -15,7 +15,7 @@ using SDNCast.Services;
 namespace SDNCast.Pages
 {
     [Authorize]
-    public class AdminComponentBase : ComponentBase
+    public partial class Admin : ComponentBase
     {
         internal AdminModel AdminModel { get; set; } = new AdminModel();
 
