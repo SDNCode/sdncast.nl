@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +8,9 @@ using Microsoft.Extensions.Options;
 using SDNCast.Extensions;
 using SDNCast.Models;
 using SDNCast.Services;
+
+using System;
+using System.Threading.Tasks;
 
 namespace SDNCast.Pages
 {
@@ -100,6 +100,9 @@ namespace SDNCast.Pages
             {
                 var liveShowDetails = await LiveShowDetailsService.LoadAsync();
                 Mapper.Map(AdminModel, liveShowDetails);
+
+                liveShowDetails.NextShowDateUtc = AdminModel.NextShowDateCET?.ConvertFromCetToUtc();
+
                 await LiveShowDetailsService.SaveAsync(liveShowDetails);
 
                 SuccessMessage = "Live show details saved successfully!";
@@ -145,7 +148,7 @@ namespace SDNCast.Pages
             SuccessMessage = "Live show details saved successfully!";
         }
 
-        internal void OnSelectNextThursday()
+        internal void OnSelectNextTuesday()
         {
             AdminModel.NextShowDateCET = Convert.ToDateTime(AdminModel.NextShowDateSuggestionCetPM);
         }
@@ -155,20 +158,25 @@ namespace SDNCast.Pages
             Mapper.Map(liveShowDetails, AdminModel);
             AdminModel.NextShowDateCET = liveShowDetails?.NextShowDateUtc?.ConvertFromUtcToCet();
 
-            var nextThursday = GetNextThursday();
-            AdminModel.NextShowDateSuggestionCetPM = nextThursday.AddHours(20).ToString("MM/dd/yyyy HH:mm");
+            var nextTuesday = GetNextTuesday();
+            AdminModel.NextShowDateSuggestionCetPM = nextTuesday.AddHours(20).ToString("MM/dd/yyyy HH:mm");
 
             AdminModel.AppSettings = AppSettings.Value;
             AdminModel.EnvironmentName = Environment.EnvironmentName;
         }
 
-        private DateTime GetNextThursday()
+        private DateTime GetNextTuesday()
         {
             var nowCet = DateTime.UtcNow.ConvertFromUtcToCet();
-            var remainingDays = 7 - ((int)nowCet.DayOfWeek + 3) % 7;
-            var nextThursday = nowCet.AddDays(remainingDays);
 
-            return nextThursday.Date;
+            return GetNextWeekday(nowCet, DayOfWeek.Tuesday);
+        }
+
+        private DateTime GetNextWeekday(DateTime start, DayOfWeek day)
+        {
+            // The (... + 7) % 7 ensures we end up with a value in the range [0, 6]
+            int daysToAdd = ((int)day - (int)start.DayOfWeek + 7) % 7;
+            return start.AddDays(daysToAdd).Date;
         }
     }
 }

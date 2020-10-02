@@ -4,98 +4,90 @@
 
     @if (Context.IsOnAir)
     {
-        <span class="badge badge-danger"><strong>ON AIR</strong></span>
+    <span class="badge badge-danger"><strong>ON AIR</strong></span>
     }
     else if (Context.HasAdminMessage)
     {
-        <span class="badge badge-warning"><strong>STANDBY</strong></span>
+    <span class="badge badge-warning"><strong>STANDBY</strong></span>
     }
 </h1>
 @if (Context.HasAdminMessage)
 {
-    <h2 class="text-center">
-        @Context.AdminMessage
-    </h2>
+<h2 class="text-center">
+    @Context.AdminMessage
+</h2>
 }
 else if (Context.IsOnAir)
 {
-    <div class="embed-responsive embed-responsive-16by9 hangout-embed">
-        <iframe class="embed-responsive-item" src="@Context.LiveShowEmbedUrl" allowfullscreen></iframe>
-    </div>
-    @*<partial name="_HangoutEmbed" model="Model"></partial>*@
+<div class="embed-responsive embed-responsive-16by9 hangout-embed">
+    <iframe class="embed-responsive-item" src="@Context.LiveShowEmbedUrl" allowfullscreen></iframe>
+</div>
+@*<partial name="_HangoutEmbed" model="Model"></partial>*@
 }
 else
 {
-    <div class="next-episode text-center">
+<div class="next-episode text-center">
 
-        @if (Context.NextShowScheduled)
+    @if (Context.NextShowScheduled)
         {
-            <div id="nextShowDetails"
-                 data-utc-year="@Context.NextShowDateUtc.Value.Year"
-                 data-utc-month="@(Context.NextShowDateUtc.Value.Month - 1)"
-                 data-utc-day="@Context.NextShowDateUtc.Value.Day"
-                 data-utc-hour="@Context.NextShowDateUtc.Value.Hour"
-                 data-utc-min="@Context.NextShowDateUtc.Value.Minute">
-                <h2>Next SDN Cast will be streamed at</h2>
-                <h2>
-                    <strong data-part="showTime" class="hidden">
-                        @Context.NextShowDateUtc.Value.ToString("u") (UTC)
-                        Your Time:
-                        @Test()
-                    </strong>
-                </h2>
-                <h2>
-                    <span data-part="countdown"></span>
-                </h2>
+    <div id="nextShowDetails"
+         data-utc-year="@Context.NextShowDateUtc.Value.Year"
+         data-utc-month="@(Context.NextShowDateUtc.Value.Month - 1)"
+         data-utc-day="@Context.NextShowDateUtc.Value.Day"
+         data-utc-hour="@Context.NextShowDateUtc.Value.Hour"
+         data-utc-min="@Context.NextShowDateUtc.Value.Minute">
+        <h2>Next SDN Cast will be streamed at</h2>
+        <h2>
+            <strong data-part="showTime" class="hidden">
+                @Context.NextShowDateUtc.Value.ToString("U") (UTC)
+            </strong>
+        </h2>
+        <h2>
+            <span data-part="countdown"></span>
+        </h2>
+    </div>
+    <!--
+        <div class="btn-group">
+            <button id="addToCalendar" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Add to calendar<span class="caret"></span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="addToCalendar">
+                <a class="dropdown-item" asp-action="GetiCal" asp-protocol="http">Download iCalendar (ICS) file</a>
+                <a class="dropdown-item" asp-action="GetiCal" asp-protocol="webcals">Add using webcal</a>
+                <a class="dropdown-item" href="@Context.AddToGoogleUrl" target="_blank">Add to Google Calendar</a>
             </div>
-            <div class="btn-group">
-                <button id="addToCalendar" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Add to calendar<span class="caret"></span>
-                </button>
-                <div class="dropdown-menu" aria-labelledby="addToCalendar">
-                    <a class="dropdown-item" asp-action="GetiCal" asp-protocol="http">Download iCalendar (ICS) file</a>
-                    <a class="dropdown-item" asp-action="GetiCal" asp-protocol="webcals">Add using webcal</a>
-                    <a class="dropdown-item" href="@Context.AddToGoogleUrl" target="_blank">Add to Google Calendar</a>
-                </div>
-            </div>
+        </div>
+    -->
 
-            @*<cache>
-                    <environment names="Development">
-                        <script src="~/js/site.js" inline="true"></script>
-                    </environment>
-                    <environment names="Staging,Production">
-                        <script src="~/js/site.min.js" inline="true"></script>
-                    </environment>
-                </cache>*@
-            @*<script>
-                    (function () {
-                        window.siteJs.setNextShowDetails("nextShowDetails");
-                    })();
-                </script>*@
+    @*<cache>
+            <environment names="Development">
+                <script src="~/js/site.js" inline="true"></script>
+            </environment>
+            <environment names="Staging,Production">
+                <script src="~/js/site.min.js" inline="true"></script>
+            </environment>
+        </cache>*@
+    @*<script>
+            (function () {
+                window.siteJs.setNextShowDetails("nextShowDetails");
+            })();
+        </script>*@
         }
         else
         {
-            <h2>Weekly Live Stream</h2>
-            <p>20:00 PM Central Europe Standard Time</p>
+    <h2>Weekly Live Stream</h2>
+    <p>20:00 PM Central Europe Standard Time</p>
         }
-        <br /><br />
-        <p>Return to watch the SDN Casts and ask some questions!</p>
+    <br /><br />
+    <p>Return to watch the SDN Casts and ask some questions!</p>
+</div>
+<div class="container-fluid">
+    <div class="row justify-content-center" style="padding: 5px;">
+
     </div>
-    <div class="container-fluid">
-        <div class="row justify-content-center" style="padding: 5px;">
-
-        </div>
-        <div class="row justify-content-center" style="padding: 5px;">
-            <!-- https://developers.google.com/youtube/youtube_subscribe_button -->
-            <div class="g-ytsubscribe" data-channelid="UC3oE_YPB4AJVQSInC-yy3pw" data-layout="default" data-count="default"></div>
-        </div>
+    <div class="row justify-content-center" style="padding: 5px;">
+        <!-- https://developers.google.com/youtube/youtube_subscribe_button -->
+        <div class="g-ytsubscribe" data-channelid="UC3oE_YPB4AJVQSInC-yy3pw" data-layout="default" data-count="default"></div>
     </div>
-}
-
-@code {
-
-    private string Test()
-    {
-        return Context.NextShowDateUtc == null ? "n/a" : ((DateTime) Context.NextShowDateUtc).ToLocalTime().ToString("u");
-    }
+</div>
 }

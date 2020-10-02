@@ -33,7 +33,7 @@ version.h
 
 # Profiler result files, just in case they are left lying around :)
 .vs/
-
+.vscode
 
 node_modules/
 src/*/wwwroot/lib/
@@ -43,3 +43,4 @@ src/*/wwwroot/lib/
 
 ShowDetails.json
 PublishOutput/
+publish/

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,6 +28,7 @@ namespace SDNCast
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
+
             if (string.IsNullOrEmpty(Configuration["AppSettings:AzureStorageConnectionString"]))
             {
                 services.AddSingleton<ILiveShowDetailsService, FileSystemLiveShowDetailsService>();
@@ -57,6 +59,11 @@ namespace SDNCast
             }
 
             app.UseHttpsRedirection();
+
+            app.UseRewriter(new RewriteOptions()
+                .AddRedirectToWww()
+                .AddIISUrlRewrite(env.ContentRootFileProvider, "urlRewrite.config"));
+
             app.UseStaticFiles();
 
             app.UseRouting();
