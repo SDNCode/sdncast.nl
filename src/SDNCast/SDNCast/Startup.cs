@@ -46,6 +46,9 @@ namespace SDNCast
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // Security Pointers for reference:
+            // https://www.hanselman.com/blog/easily-adding-security-headers-to-your-aspnet-core-web-app-and-getting-an-a-grade
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -54,17 +57,39 @@ namespace SDNCast
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
             }
 
+            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            app.UseHsts(options => options.MaxAge(days: 30));
             app.UseHttpsRedirection();
 
             app.UseRewriter(new RewriteOptions()
                 .AddRedirectToWww()
                 .AddIISUrlRewrite(env.ContentRootFileProvider, "urlRewrite.config"));
 
+            //Registered before static files to always set header
+            app.UseXContentTypeOptions();
+            app.UseReferrerPolicy(options => options.NoReferrerWhenDowngrade());
+
+            app.UseCsp(options => options
+                .DefaultSources(s => s.Self()
+                    .CustomSources("data:")
+                    .CustomSources("https:"))
+                .StyleSources(s => s.Self()
+                    .CustomSources("www.google.com", "platform.twitter.com", "cdn.syndication.twimg.com", "fonts.googleapis.com")
+                    .UnsafeInline()
+                )
+                .ScriptSources(s => s.Self()
+                       .CustomSources("www.google.com", "cse.google.com", "cdn.syndication.twimg.com", "platform.twitter.com")
+                    .UnsafeInline()
+                    .UnsafeEval()
+                )
+            );
+
             app.UseStaticFiles();
+
+            //Registered after static files, to set headers for dynamic content.
+            app.UseXfo(options => options.SameOrigin());
 
             app.UseRouting();
             app.UseAuthentication();
@@ -75,6 +100,13 @@ namespace SDNCast
                 endpoints.MapControllers();
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
+            });
+
+            //Feature-Policy
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.Add("Feature-Policy", "geolocation 'none';midi 'none';notifications 'none';push 'none';sync-xhr 'none';microphone 'none';camera 'none';magnetometer 'none';gyroscope 'none';speaker 'self';vibrate 'none';fullscreen 'self';payment 'none';");
+                await next.Invoke();
             });
         }
     }
