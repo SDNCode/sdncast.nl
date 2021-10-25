@@ -80,9 +80,13 @@ namespace SDNCast
                     .UnsafeInline()
                 )
                 .ScriptSources(s => s.Self()
-                       .CustomSources("www.google.com", "cse.google.com", "cdn.syndication.twimg.com", "platform.twitter.com")
+                    .CustomSources("www.google.com", "cse.google.com", "cdn.syndication.twimg.com", "platform.twitter.com", "code.jquery.com")
                     .UnsafeInline()
                     .UnsafeEval()
+                )
+                .ImageSources(s => s.Self()
+                    .CustomSources("data:")
+                    .CustomSources("i.ytimg.com", "avatars0.githubusercontent.com", "avatars1.githubusercontent.com", "pbs.twimg.com", "reynders.co")
                 )
             );
 
@@ -102,10 +106,14 @@ namespace SDNCast
                 endpoints.MapFallbackToPage("/_Host");
             });
 
-            //Feature-Policy
+            // Permissions-Policy (previously known as Feature-Policy
+            // https://scotthelme.co.uk/goodbye-feature-policy-and-hello-permissions-policy/
+            // https://jonathancrozier.com/blog/stepping-up-the-security-of-asp-net-core-web-apps-with-security-headers
             app.Use(async (context, next) =>
             {
-                context.Response.Headers.Add("Feature-Policy", "geolocation 'none';midi 'none';notifications 'none';push 'none';sync-xhr 'none';microphone 'none';camera 'none';magnetometer 'none';gyroscope 'none';speaker 'self';vibrate 'none';fullscreen 'self';payment 'none';");
+                // does not appear to work (yet?)
+                // https://securityheaders.com/
+                context.Response.Headers.Add("Permissions-Policy", "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()");
                 await next.Invoke();
             });
         }
