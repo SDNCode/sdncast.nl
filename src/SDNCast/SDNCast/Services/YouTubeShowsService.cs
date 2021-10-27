@@ -139,7 +139,14 @@ namespace SDNCast.Services
                 return title;
             }
 
+            // Fails on "Add-ins" 
+            if (title.Count(c => c == '-') == 1 && title.ToLower().Contains("dd-in"))
+            {
+                return title;
+            }
+
             var lastHyphen = title.IndexOf('-');
+
             if (lastHyphen >= 0)
             {
                 var result = title.Substring(lastHyphen + 1).Trim();
