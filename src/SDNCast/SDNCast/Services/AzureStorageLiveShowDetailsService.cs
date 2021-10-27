@@ -41,6 +41,12 @@ namespace SDNCast.Services
             {
                 liveShowDetails = await LoadFromAzureStorage();
 
+                // if liveShowDetails == null -> Initialize
+                if (liveShowDetails == null)
+                {
+                    liveShowDetails = new LiveShowDetailsModel();
+                }
+
                 bool isDevelopment = _env.EnvironmentName.Equals("Development", StringComparison.InvariantCultureIgnoreCase);
                 TimeSpan timespan = isDevelopment ? TimeSpan.FromMinutes(360) : TimeSpan.FromDays(1);
 
